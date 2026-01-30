@@ -9,7 +9,7 @@ namespace Game.Utilities
 
         [SerializeField] private bool _isPersistent = true;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (Instance && Instance != this)
             {
