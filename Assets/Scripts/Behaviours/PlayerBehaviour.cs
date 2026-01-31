@@ -70,13 +70,14 @@ namespace Game.Behaviours
                 _delta.y = _movement * (int)Mathf.Sign(_rawInput.y);
             }
             
-            _destination += _delta;
             
             if (!CheckAndTryMoveObstacle())
             {
                 return;
             }
 
+            _destination += _delta;
+            
             _animator.SetBool(IsMoving, true);
 
             if (!_sequence.isAlive)

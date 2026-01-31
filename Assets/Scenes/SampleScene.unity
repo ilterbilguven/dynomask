@@ -492,6 +492,7 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 751865058}
   Movement: 0.9
   _canMove: 0
+  _destination: {x: 0, y: 0, z: 0}
 --- !u!50 &751865058
 Rigidbody2D:
   serializedVersion: 5
@@ -777,38 +778,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1079285296 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7876911178787484398, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
-  m_PrefabInstance: {fileID: 1294092936712329294}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1079285305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9219740121189198226, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
   m_PrefabInstance: {fileID: 1294092936712329294}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1079285306
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079285296}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 471f7f164e3f749fba64fd5930bca03f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1879006091
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,21 +911,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 289788463738428089, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 1079285306}
-    - target: {fileID: 5917616960842492138, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 5788119534827436671, guid: d81b8b8b59a634dfd9a844ee3e56f5df, type: 3}
     - target: {fileID: 7876911178787484398, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7876911178787484398, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9219740121189198226, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -996,10 +958,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7876911178787484398, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1079285306}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
 --- !u!1001 &2712659415403720452
 PrefabInstance:
