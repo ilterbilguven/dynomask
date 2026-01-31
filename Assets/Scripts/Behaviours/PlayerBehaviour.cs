@@ -33,9 +33,6 @@ namespace Game.Behaviours
         [SerializeField, ReadOnly] private Vector3 _destination;
         
         private Sequence _sequence;
-
-        [SerializeField] private GamepadRumble _gamepadRumble;
-        
         
         private void Awake()
         {
@@ -47,9 +44,18 @@ namespace Game.Behaviours
             _gameActions = new GameActions();
             _gameActions.Player.Move.performed += OnMovePerformed;
             _gameActions.Player.Move.canceled += OnMoveCanceled;
-            _gameActions.Enable();
             
             _destination = transform.position;
+        }
+        
+        public void EnableInput()
+        {
+            _gameActions.Enable();
+        }
+        
+        public void DisableInput()
+        {
+            _gameActions.Disable();
         }
 
         private void OnDestroy()
@@ -99,7 +105,6 @@ namespace Game.Behaviours
             }
             
             _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
-            _gamepadRumble.Rumble(0.2f, 0.5f, 1f);
             // transform.Translate(_delta);
             
             _animator.SetFloat(X, _delta.x);

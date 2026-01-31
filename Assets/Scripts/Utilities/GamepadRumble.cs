@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Game.Utilities
 {
-    public class GamepadRumble : MonoBehaviour
+    public class GamepadRumble : SingletonBehaviour<GamepadRumble>
     {
         Coroutine _routine;
 

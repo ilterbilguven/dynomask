@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Utilities;
 using NaughtyAttributes;
 using PrimeTween;
 using UnityEngine;
@@ -50,6 +51,8 @@ namespace Game.Behaviours
             }
 
             _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
+            GamepadRumble.Instance.Rumble(0.2f, 0.5f, 0.2f);
+            
 
             // transform.Translate(direction);
 

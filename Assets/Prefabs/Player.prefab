@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5658154143672053390}
   - component: {fileID: 6626702615874501452}
   - component: {fileID: 289788463738428089}
-  - component: {fileID: 2984409159587649474}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -200,16 +199,4 @@ MonoBehaviour:
   _isMoving: 0
   _movement: 1
   _destination: {x: 0, y: 0, z: 0}
-  _gamepadRumble: {fileID: 2984409159587649474}
---- !u!114 &2984409159587649474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7876911178787484398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b3b964336a384e0388319fb3b79afc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.Utilities.GamepadRumble
+  _gamepadRumble: {fileID: 0}

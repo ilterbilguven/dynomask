@@ -19,7 +19,8 @@ namespace Game.Managers
         {
             base.Awake();
 
-            LevelManager.Instance.OnLevelLoaded.AddListener(OnLevelLoaded);
+            LevelManager.Instance.OnLevelChangeRequested.AddListener(OnLevelChangeRequested);
+            LevelManager.Instance.OnLevelChanged.AddListener(OnLevelChanged);
         }
 
         private void Start()
@@ -27,9 +28,20 @@ namespace Game.Managers
             UIManager.Instance.ToggleMainMenu(true);
         }
 
-        private async void OnLevelLoaded(int levelIndex)
+        private void OnLevelChangeRequested()
         {
-            await Awaitable.NextFrameAsync();
+            if (_player)
+            {
+                _player.DisableInput();
+            }
+        }
+
+        private void OnLevelChanged(int arg0)
+        {
+            if (_player)
+            {
+                _player.EnableInput();
+            }
         }
 
         public void StartGame()
