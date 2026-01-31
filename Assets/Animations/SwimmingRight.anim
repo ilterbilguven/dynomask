@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SwimRight
+  m_Name: SwimmingRight
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 1467915178397531610, guid: 58d07687b543f4f1dba01d34d5d54091, type: 3}
+      value: {fileID: 3476966438129252388, guid: a8aeddb229926464eaffe73bba057827, type: 3}
     - time: 0.10000038
-      value: {fileID: 7448594763224770081, guid: 58d07687b543f4f1dba01d34d5d54091, type: 3}
+      value: {fileID: -2263924483722895892, guid: a8aeddb229926464eaffe73bba057827, type: 3}
     - time: 0.20000029
-      value: {fileID: 5654817501643353655, guid: 58d07687b543f4f1dba01d34d5d54091, type: 3}
+      value: {fileID: 6871258691622267470, guid: a8aeddb229926464eaffe73bba057827, type: 3}
     - time: 0.2900003
-      value: {fileID: 5654817501643353655, guid: 58d07687b543f4f1dba01d34d5d54091, type: 3}
+      value: {fileID: 6871258691622267470, guid: a8aeddb229926464eaffe73bba057827, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
