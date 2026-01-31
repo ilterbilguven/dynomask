@@ -43,7 +43,11 @@ namespace Game.Behaviours
             
             var size = Physics2D.OverlapBox(_destination, Vector2.one * Movement, 0, ContactFilter2D.noFilter, results);
 
-            if (size != 0) return false;
+            if (size != 0)
+            {
+                _destination -= delta;
+                return false;
+            }
             
             if (!_sequence.isAlive)
             {
