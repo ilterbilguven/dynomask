@@ -11,10 +11,18 @@ PrefabInstance:
     - target: {fileID: 122251036451167542, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2074532859, guid: 62f1a24883cf9d94893ba22eb5ec8d65, type: 3}
+      objectReference: {fileID: 8673728488854089814, guid: aae2eb652d60442eca4a3871b3ae1b7f, type: 3}
     - target: {fileID: 122251036451167542, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 480880684465068273, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 480880684465068273, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2428778211031418796, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,8 +66,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7910816449210766734, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: m_Name
-      value: Pillar
+      value: Pillar 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8307500863037923135, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8673728488854089814, guid: aae2eb652d60442eca4a3871b3ae1b7f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
