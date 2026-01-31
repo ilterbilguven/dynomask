@@ -41,7 +41,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _FX_LIST: 0
-    - _FX_LIST_: 1
+    - _FX_LIST_: 0
     - _SceneOut: 1
     - _WaterDistortion: 0.2
     - _WaterHueShift: 0.814
