@@ -434,8 +434,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
   m_TimelineExistance: 2
-  m_ValidateMovements: 0
-  m_DisableOnWrongTimeline: 1
 --- !u!156049354 &150025299
 Grid:
   m_ObjectHideFlags: 0
@@ -635,15 +633,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7876911178787484398, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9219740121189198226, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9219740121189198226, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.5
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 9219740121189198226, guid: c2ffeb1a081e44ca1b0f8265bb1af4d7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6206,7 +6204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1155330753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6220,8 +6218,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
   m_TimelineExistance: 4
-  m_ValidateMovements: 0
-  m_DisableOnWrongTimeline: 1
 --- !u!156049354 &1155330754
 Grid:
   m_ObjectHideFlags: 0
@@ -12085,8 +12081,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
   m_TimelineExistance: 8
-  m_ValidateMovements: 0
-  m_DisableOnWrongTimeline: 1
 --- !u!156049354 &2095123141
 Grid:
   m_ObjectHideFlags: 0
