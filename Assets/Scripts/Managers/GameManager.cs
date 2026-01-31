@@ -11,6 +11,7 @@ namespace Game.Managers
     {
         [ReadOnly, SerializeField]
         private PlayerBehaviour _player;
+        public PlayerBehaviour Player => _player;
         
         [ReadOnly, SerializeField]
         private CinemachineCamera _camera;
