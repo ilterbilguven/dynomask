@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Game.Behaviours;
 using Game.Managers;
 using UnityEngine;
 
 namespace Game
 {
-    public class DimensionObject : MonoBehaviour
+    public class DimensionObjectBehaviour : MonoBehaviour
     {
         [SerializeField] private Timeline m_TimelineExistance = Timeline.Past | Timeline.Present | Timeline.Future;
 
@@ -13,6 +14,10 @@ namespace Game
         
         private Dictionary<Timeline, Vector2> m_TimelinePositions; // <Timeline, Position>
 
+        private ObstacleBehaviour m_ObstacleBehaviour;
+
+        [SerializeField] private bool m_UpdatePosition = true;
+        
         private void Awake()
         {
             DimensionManager.Instance.OnDimensionChange?.AddListener(OnDimensionChanged);
@@ -37,6 +42,7 @@ namespace Game
 
         private void Update()
         {
+            if (!m_UpdatePosition) return;
             switch (DimensionManager.Instance.CurrentDimension)
             {
                 case Timeline.Past:
@@ -57,7 +63,17 @@ namespace Game
         private void OnDimensionChanged(Timeline from, Timeline to)
         {
             gameObject.SetActive(m_TimelineExistance.HasFlag(to));
+            if (!m_UpdatePosition) return;
             transform.position = m_TimelinePositions[to];
+            if (m_ObstacleBehaviour)
+            {
+                m_ObstacleBehaviour.ResetDestination(transform.position);
+            }
+        }
+
+        public void LocateObstacleBehaviour(ObstacleBehaviour obstacleBehaviour)
+        {
+            m_ObstacleBehaviour = obstacleBehaviour;
         }
     }
 }

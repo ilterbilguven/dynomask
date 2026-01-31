@@ -37,7 +37,7 @@ namespace Game.Behaviours
         
         private static Timeline _availableTimelines = Timeline.Present;
         private Stack<Timeline> _timelineStack = new();
-        
+        private Dictionary<int, Vector2> _previousPositionsInScenes = new();
         
         private Sequence _sequence;
         

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Managers;
 using Game.Utilities;
 using NaughtyAttributes;
 using PrimeTween;
@@ -20,6 +21,15 @@ namespace Game.Behaviours
         private Sequence _sequence;
         
         private Color _gizmoColor = Color.red;
+
+        [SerializeField] private DimensionObjectBehaviour _dimensionObject;
+        
+
+        private void Awake()
+        {
+            DimensionManager.Instance.OnDimensionChange.AddListener(OnDimensionChanged);
+            _dimensionObject.LocateObstacleBehaviour(this);
+        }
 
         private void Start()
         {
@@ -70,6 +80,16 @@ namespace Game.Behaviours
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(_destination, Vector3.one * Movement);
+        }
+
+        private void OnDimensionChanged(Timeline from, Timeline to)
+        {
+            _destination = transform.position;
+        }
+
+        public void ResetDestination(Vector3 position)
+        {
+            _destination = position;
         }
     }
 }

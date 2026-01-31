@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Game.Behaviours;
 using Game.Utilities;
 using NaughtyAttributes;
@@ -15,6 +16,8 @@ namespace Game.Managers
         
         [ReadOnly, SerializeField]
         private CinemachineCamera _camera;
+        
+        private Dictionary<int, Vector3> _previousPositionsInScenes = new();
         
         protected override void Awake()
         {
@@ -33,6 +36,7 @@ namespace Game.Managers
         {
             if (_player)
             {
+                _previousPositionsInScenes[LevelManager.Instance.CurrentSceneIndex] = _player.transform.position;
                 _player.DisableInput();
             }
         }
@@ -54,6 +58,10 @@ namespace Game.Managers
         public void SetPlayer(PlayerBehaviour player)
         {
             _player = player;
+            if (_previousPositionsInScenes.TryGetValue(LevelManager.Instance.CurrentSceneIndex, out var position))
+            {
+                _player.transform.position = position;
+            }
         }
         
         public void LocateCamera(CinemachineCamera camera)
