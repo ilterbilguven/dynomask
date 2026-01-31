@@ -13,13 +13,19 @@ namespace Game.Behaviours
         public float Movement = 1;
 
         [ReadOnly, SerializeField] private bool _canMove;
+        
+        [SerializeField, ReadOnly] private Vector3 _destination;
+        
+        private Sequence _sequence;
 
         private void Start()
         {
             _canMove = true;
+            
+            _destination = transform.position;
         }
 
-        public bool TryMove(Vector3 direction)
+        public bool TryMove(Vector3 delta)
         {
             // if (!_canMove)
             // {
@@ -30,22 +36,24 @@ namespace Game.Behaviours
             // if there is an obstacle, return false
             // else return true    
             
-            var destination = transform.position + direction;
+            _destination += delta;
 
             var results = new List<Collider2D>();
             
-            var size = Physics2D.OverlapBox(destination, Vector2.one * Movement, 0, ContactFilter2D.noFilter, results);
+            var size = Physics2D.OverlapBox(_destination, Vector2.one * Movement, 0, ContactFilter2D.noFilter, results);
 
-            if (size == 0)
-            {
-                // _canMove = false;
-                // Tween.RigidbodyMovePosition(_rigidbody2D, transform.position + direction, 0.2f)
-                //     .OnComplete(() => _canMove = true);
-
-                transform.Translate(direction);
-            }
+            if (size != 0) return false;
             
-            return size == 0;
+            if (!_sequence.isAlive)
+            {
+                _sequence = Sequence.Create();
+            }
+
+            _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
+
+            // transform.Translate(direction);
+
+            return true;
         }
 
     }

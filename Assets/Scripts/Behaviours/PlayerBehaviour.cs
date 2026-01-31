@@ -10,9 +10,13 @@ namespace Game.Behaviours
 {
     public class PlayerBehaviour : MonoBehaviour
     {
+        private static readonly int Y = Animator.StringToHash("Y");
+        private static readonly int X = Animator.StringToHash("X");
+        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private GameActions _gameActions;
 
         [SerializeField] private Rigidbody2D _rigidbody2D;
+        [SerializeField] private Animator _animator;
         
         [ReadOnly, SerializeField]
         private Vector2 _rawInput = Vector2.zero;
@@ -21,10 +25,13 @@ namespace Game.Behaviours
         private Vector3 _delta = Vector3.zero;
         
         [ReadOnly, SerializeField]
-        private bool _isMoving, _canMove;
+        private bool _isMoving;
 
         [SerializeField] private int _movement = 1;
+
+        [SerializeField, ReadOnly] private Vector3 _destination;
         
+        private Sequence _sequence;
         
         private void Start()
         {
@@ -32,7 +39,8 @@ namespace Game.Behaviours
             _gameActions.Player.Move.performed += OnMovePerformed;
             _gameActions.Player.Move.canceled += OnMoveCanceled;
             _gameActions.Enable();
-            // _canMove = true;
+            
+            _destination = transform.position;
         }
 
         private void OnDestroy()
@@ -43,7 +51,7 @@ namespace Game.Behaviours
 
         private void OnMovePerformed(InputAction.CallbackContext context)
         {
-            if (_isMoving /*&& !_canMove*/)
+            if (_isMoving)
             {
                 return;
             }
@@ -62,16 +70,30 @@ namespace Game.Behaviours
                 _delta.y = _movement * (int)Mathf.Sign(_rawInput.y);
             }
             
+            _destination += _delta;
+            
             if (!CheckAndTryMoveObstacle())
             {
                 return;
             }
 
-            // _canMove = false;
-            // Tween.RigidbodyMovePosition(_rigidbody2D, transform.position + _delta, 0.2f).OnComplete(() => _canMove = true);
-            transform.Translate(_delta);
+            _animator.SetBool(IsMoving, true);
+
+            if (!_sequence.isAlive)
+            {
+                _sequence = Sequence.Create();
+                _sequence.OnComplete(() =>
+                {
+                    _animator.SetBool(IsMoving, false);
+                });
+            }
             
-            _delta = Vector3.zero;
+            _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
+            
+            // transform.Translate(_delta);
+            
+            _animator.SetFloat(X, _delta.x);
+            _animator.SetFloat(Y, _delta.y);
         }
 
         private bool CheckAndTryMoveObstacle()
@@ -88,7 +110,11 @@ namespace Game.Behaviours
         private void OnMoveCanceled(InputAction.CallbackContext context)
         {
             _isMoving = false;
+            _delta = Vector3.zero;
             _rawInput = Vector2.zero;
+            
+            _animator.SetFloat(X, 0);
+            _animator.SetFloat(Y, 0);
         }
         
         
