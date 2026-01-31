@@ -11663,13 +11663,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8965210437151458918, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 742802732}
   m_SourcePrefab: {fileID: 100100000, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
 --- !u!4 &742802730 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3465183647575004228, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
   m_PrefabInstance: {fileID: 742802729}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &742802731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8965210437151458918, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
+  m_PrefabInstance: {fileID: 742802729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &742802732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742802731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29c1585e2a9c1d4183072c862efe211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
+  m_TimelineExistance: 14
+  m_ValidateMovements: 1
+  m_DisableOnWrongTimeline: 1
 --- !u!1001 &860365853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14720,7 +14743,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29c1585e2a9c1d4183072c862efe211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
-  m_DimensionIndex: 2
+  m_TimelineExistance: 8
+  m_ValidateMovements: 0
+  m_DisableOnWrongTimeline: 1
 --- !u!156049354 &1241826876
 Grid:
   m_ObjectHideFlags: 0
@@ -14781,7 +14806,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29c1585e2a9c1d4183072c862efe211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
-  m_DimensionIndex: 1
+  m_TimelineExistance: 2
+  m_ValidateMovements: 0
+  m_DisableOnWrongTimeline: 1
 --- !u!156049354 &1636231908
 Grid:
   m_ObjectHideFlags: 0
@@ -22305,13 +22332,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8965210437151458918, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2030348044}
   m_SourcePrefab: {fileID: 100100000, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
 --- !u!4 &2030348042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3465183647575004228, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
   m_PrefabInstance: {fileID: 2030348041}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2030348043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8965210437151458918, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
+  m_PrefabInstance: {fileID: 2030348041}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2030348044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030348043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29c1585e2a9c1d4183072c862efe211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
+  m_TimelineExistance: 14
+  m_ValidateMovements: 1
+  m_DisableOnWrongTimeline: 1
 --- !u!1 &2053263820
 GameObject:
   m_ObjectHideFlags: 0
@@ -22322,7 +22372,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2053263823}
   - component: {fileID: 2053263822}
-  - component: {fileID: 2053263821}
   m_Layer: 0
   m_Name: Movables
   m_TagString: Untagged
@@ -22330,19 +22379,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2053263821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053263820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a29c1585e2a9c1d4183072c862efe211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
-  m_DimensionIndex: 0
 --- !u!156049354 &2053263822
 Grid:
   m_ObjectHideFlags: 0
@@ -22432,7 +22468,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29c1585e2a9c1d4183072c862efe211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
-  m_DimensionIndex: 0
+  m_TimelineExistance: 4
+  m_ValidateMovements: 0
+  m_DisableOnWrongTimeline: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
