@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{fdcf16ff-320c-404d-ae73-e2d19472409f}">
+		<property name="assetPath">
+			<value>Music/Dinomask - Music Present DEMO v1.1.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>56</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a57bb35c-111f-433c-9d35-810f0d6cd011}</destination>
+		</relationship>
+	</object>
+</objects>
