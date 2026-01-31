@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Managers;
 using Game.Utilities;
+using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
-namespace Game
+namespace Game.Managers
 {
     public class LevelManager : SingletonBehaviour<LevelManager>
     {
@@ -45,6 +46,9 @@ namespace Game
         /// Called after a level scene change animation ends
         /// </summary>
         public UnityEvent<int> OnLevelChanged { get; private set; }
+
+        [field: ReadOnly, SerializeField] 
+        public LevelBehaviour CurrentLevel { get; private set; }
 
         protected override void Awake()
         {
@@ -159,6 +163,11 @@ namespace Game
 
             Debug.Log("Unloaded: " + index);
             m_AdditiveScenes.Remove(index);
+        }
+
+        public void LocateLevel(LevelBehaviour level)
+        {
+            CurrentLevel = level;
         }
     }
 }

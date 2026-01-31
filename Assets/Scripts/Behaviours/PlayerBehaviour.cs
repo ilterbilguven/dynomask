@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Game.Managers;
 using Game.Utilities;
@@ -28,11 +29,15 @@ namespace Game.Behaviours
         private Vector3 _delta = Vector3.zero;
         
         [ReadOnly, SerializeField]
-        private bool _isMoving;
+        private bool _isMoving, _dimensionChanged;
 
         [SerializeField] private int _movement = 1;
 
         [SerializeField, ReadOnly] private Vector3 _destination;
+        
+        private static Timeline _availableTimelines = Timeline.Present;
+        private Queue<Timeline> _timelineQueue = new();
+        
         
         private Sequence _sequence;
         
@@ -46,11 +51,23 @@ namespace Game.Behaviours
             _gameActions = new GameActions();
             _gameActions.Player.Move.performed += OnMovePerformed;
             _gameActions.Player.Move.canceled += OnMoveCanceled;
+            _gameActions.Player.Previous.performed += OnPreviousPerformed;
+            _gameActions.Player.Previous.canceled += OnPreviousCanceled;
+            _gameActions.Player.Next.performed += OnNextPerformed;
+            _gameActions.Player.Next.canceled += OnNextCanceled;
             
             _destination = transform.position;
-            _animator.SetFloat(X, 0);
-            _animator.SetFloat(Y, -1);
+            
+            SetAnimatorDefaults();
+        }
+
+        private void SetAnimatorDefaults()
+        {
+            _animator.SetFloat(X, -1);
+            _animator.SetFloat(Y, 0);
             _animator.SetBool(IsMoving, false);
+            _animator.SetBool(IsPushing, false);
+            _animator.SetBool(IsSwimming, false);
         }
         
         public void EnableInput()
@@ -139,9 +156,62 @@ namespace Game.Behaviours
             _delta = Vector3.zero;
             _rawInput = Vector2.zero;
         }
+
+        private void OnNextPerformed(InputAction.CallbackContext context)
+        {
+            if (!_availableTimelines.HasFlag(Timeline.Future)) return;
+            if (_timelineQueue.Contains(Timeline.Future)) return;
+            _timelineQueue.Enqueue(Timeline.Future);
+
+            if (!_dimensionChanged)
+            {
+                ApplyQueuedTimeline();
+            }
+        }
+
+        private void OnNextCanceled(InputAction.CallbackContext context)
+        {
+            if (!_availableTimelines.HasFlag(Timeline.Future)) return;
+            
+            DimensionManager.Instance.SetDimension(Timeline.Present);
+        }
+
+        private void OnPreviousPerformed(InputAction.CallbackContext context)
+        {
+            if (!_availableTimelines.HasFlag(Timeline.Past)) return;
+            if (_timelineQueue.Contains(Timeline.Past)) return;
+            
+            _timelineQueue.Enqueue(Timeline.Past);
+
+            if (!_dimensionChanged)
+            {
+                ApplyQueuedTimeline();
+            }
+        }
+
         
+        private void OnPreviousCanceled(InputAction.CallbackContext context)
+        {
+            if (!_availableTimelines.HasFlag(Timeline.Past)) return;
+            
+            DimensionManager.Instance.SetDimension(Timeline.Present);
+        }
         
-        [Serializable]
-        public class Vector2IntCollider2DDictionary : SerializableDictionary<Vector2Int, Collider2D> { }
+        private void ApplyQueuedTimeline()
+        {
+            if (_timelineQueue.Count == 0) return;
+            _dimensionChanged = true;
+            var timeline = _timelineQueue.Dequeue();
+            DimensionManager.Instance.SetDimension(timeline);
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Mask") && other.TryGetComponent(out MaskBehaviour mask))
+            {
+                _availableTimelines |= mask.Timeline;
+                Destroy(mask.gameObject);
+            }
+        }
     }
 }

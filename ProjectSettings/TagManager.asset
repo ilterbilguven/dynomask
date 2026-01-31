@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Obstacle
+  - Mask
   layers:
   - Default
   - TransparentFX
@@ -44,6 +45,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 99433843
+    locked: 0
+  - name: Obstacle
+    uniqueID: 1165121631
     locked: 0
   m_RenderingLayers:
   - Default
