@@ -504,6 +504,7 @@ MonoBehaviour:
   m_EvaluationSpeed: 1.5
   m_BlackoutTime: 1
   m_SceneChangeBlit: {fileID: -5832730109787549452, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
+  <CurrentLevel>k__BackingField: {fileID: 0}
 --- !u!1 &508937307
 GameObject:
   m_ObjectHideFlags: 0
