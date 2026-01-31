@@ -34,6 +34,9 @@ namespace Game.Behaviours
         
         private Sequence _sequence;
 
+        [SerializeField] private GamepadRumble _gamepadRumble;
+        
+        
         private void Awake()
         {
             GameManager.Instance.SetPlayer(this);
@@ -96,7 +99,7 @@ namespace Game.Behaviours
             }
             
             _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
-            
+            _gamepadRumble.Rumble(0.2f, 0.5f, 1f);
             // transform.Translate(_delta);
             
             _animator.SetFloat(X, _delta.x);

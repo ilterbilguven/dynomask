@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 5917616960842492138}
   - component: {fileID: 6309106381955895504}
   - component: {fileID: 5658154143672053390}
-  - component: {fileID: 289788463738428089}
   - component: {fileID: 6626702615874501452}
+  - component: {fileID: 289788463738428089}
+  - component: {fileID: 2984409159587649474}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -158,25 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &289788463738428089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7876911178787484398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 892efbe225ad4cafa0ef16c8478d1495, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.Behaviours.PlayerBehaviour
-  _rigidbody2D: {fileID: 5658154143672053390}
-  _animator: {fileID: 6626702615874501452}
-  _rawInput: {x: 0, y: 0}
-  _delta: {x: 0, y: 0, z: 0}
-  _isMoving: 0
-  _movement: 1
-  _destination: {x: 0, y: 0, z: 0}
 --- !u!95 &6626702615874501452
 Animator:
   serializedVersion: 7
@@ -199,3 +181,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &289788463738428089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7876911178787484398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892efbe225ad4cafa0ef16c8478d1495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Behaviours.PlayerBehaviour
+  _rigidbody2D: {fileID: 5658154143672053390}
+  _animator: {fileID: 6626702615874501452}
+  _rawInput: {x: 0, y: 0}
+  _delta: {x: 0, y: 0, z: 0}
+  _isMoving: 0
+  _movement: 1
+  _destination: {x: 0, y: 0, z: 0}
+  _gamepadRumble: {fileID: 2984409159587649474}
+--- !u!114 &2984409159587649474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7876911178787484398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b3b964336a384e0388319fb3b79afc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Utilities.GamepadRumble
