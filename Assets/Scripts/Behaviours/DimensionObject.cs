@@ -11,10 +11,15 @@ namespace Game
         [SerializeField] private bool m_DisableOnWrongTimeline = false;
 
         private Vector2 m_LastValidPosition;
-        
-        void Start()
+
+        private void Awake()
         {
             DimensionManager.Instance.OnDimensionChange?.AddListener(OnDimensionChanged);
+            gameObject.SetActive(m_TimelineExistance.HasFlag(DimensionManager.Instance.CurrentDimension));
+        }
+
+        void Start()
+        {
             m_LastValidPosition = transform.position;
         }
 

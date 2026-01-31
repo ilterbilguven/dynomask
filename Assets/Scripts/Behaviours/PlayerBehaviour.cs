@@ -36,7 +36,7 @@ namespace Game.Behaviours
         [SerializeField, ReadOnly] private Vector3 _destination;
         
         private static Timeline _availableTimelines = Timeline.Present;
-        private Queue<Timeline> _timelineQueue = new();
+        private Stack<Timeline> _timelineStack = new();
         
         
         private Sequence _sequence;
@@ -44,10 +44,11 @@ namespace Game.Behaviours
         private void Awake()
         {
             GameManager.Instance.SetPlayer(this);
-        }
 
-        private void Start()
-        {
+            _destination = transform.position;
+
+            SetAnimatorDefaults();
+            
             _gameActions = new GameActions();
             _gameActions.Player.Move.performed += OnMovePerformed;
             _gameActions.Player.Move.canceled += OnMoveCanceled;
@@ -55,10 +56,11 @@ namespace Game.Behaviours
             _gameActions.Player.Previous.canceled += OnPreviousCanceled;
             _gameActions.Player.Next.performed += OnNextPerformed;
             _gameActions.Player.Next.canceled += OnNextCanceled;
-            
-            _destination = transform.position;
-            
-            SetAnimatorDefaults();
+        }
+
+        private void Start()
+        {
+            _availableTimelines = Timeline.Present | Timeline.Future | Timeline.Past;
         }
 
         private void SetAnimatorDefaults()
@@ -160,12 +162,13 @@ namespace Game.Behaviours
         private void OnNextPerformed(InputAction.CallbackContext context)
         {
             if (!_availableTimelines.HasFlag(Timeline.Future)) return;
-            if (_timelineQueue.Contains(Timeline.Future)) return;
-            _timelineQueue.Enqueue(Timeline.Future);
+            if (_timelineStack.Contains(Timeline.Future)) return;
+            _timelineStack.Push(Timeline.Future);
+            Debug.Log("Future pushed");
 
             if (!_dimensionChanged)
             {
-                ApplyQueuedTimeline();
+                ApplyStackedTimelines();
             }
         }
 
@@ -173,36 +176,49 @@ namespace Game.Behaviours
         {
             if (!_availableTimelines.HasFlag(Timeline.Future)) return;
             
-            DimensionManager.Instance.SetDimension(Timeline.Present);
+            _timelineStack.Push(Timeline.Present);
+            Debug.Log("Present pushed");
+            
+            ApplyStackedTimelines();
         }
 
         private void OnPreviousPerformed(InputAction.CallbackContext context)
         {
             if (!_availableTimelines.HasFlag(Timeline.Past)) return;
-            if (_timelineQueue.Contains(Timeline.Past)) return;
+            if (_timelineStack.Contains(Timeline.Past)) return;
             
-            _timelineQueue.Enqueue(Timeline.Past);
+            _timelineStack.Push(Timeline.Past);
+            Debug.Log("Past pushed");
 
             if (!_dimensionChanged)
             {
-                ApplyQueuedTimeline();
+                ApplyStackedTimelines();
             }
         }
-
         
         private void OnPreviousCanceled(InputAction.CallbackContext context)
         {
             if (!_availableTimelines.HasFlag(Timeline.Past)) return;
             
-            DimensionManager.Instance.SetDimension(Timeline.Present);
+            _timelineStack.Push(Timeline.Present);
+            Debug.Log("Present pushed");
+            
+            ApplyStackedTimelines();
         }
         
-        private void ApplyQueuedTimeline()
+        private void ApplyStackedTimelines()
         {
-            if (_timelineQueue.Count == 0) return;
+            if (_timelineStack.Count == 0) return;
             _dimensionChanged = true;
-            var timeline = _timelineQueue.Dequeue();
+            var timeline = _timelineStack.Pop();
+            Debug.Log($"Applying timeline: {timeline}");
             DimensionManager.Instance.SetDimension(timeline);
+            _dimensionChanged = timeline != Timeline.Present;
+            if (_timelineStack.Count > 0)
+            {
+                Debug.Log("Applying next timeline");
+                ApplyStackedTimelines();
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
