@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 480880684465068273}
   - component: {fileID: 6581795680105610237}
   - component: {fileID: 9070216218264951362}
+  - component: {fileID: 170744222489257875}
   m_Layer: 6
   m_Name: Obstacle
   m_TagString: Untagged
@@ -215,3 +216,16 @@ MonoBehaviour:
   Movement: 0.35
   _canMove: 0
   _destination: {x: 0, y: 0, z: 0}
+--- !u!114 &170744222489257875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7910816449210766734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29c1585e2a9c1d4183072c862efe211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
+  m_TimelineExistance: 6
