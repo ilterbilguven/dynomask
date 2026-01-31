@@ -14,6 +14,8 @@ namespace Game.Behaviours
         private static readonly int Y = Animator.StringToHash("Y");
         private static readonly int X = Animator.StringToHash("X");
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+        private static readonly int IsPushing = Animator.StringToHash("IsPushing");
+        private static readonly int IsSwimming = Animator.StringToHash("IsSwimming");
         private GameActions _gameActions;
 
         [SerializeField] private Rigidbody2D _rigidbody2D;
@@ -46,6 +48,9 @@ namespace Game.Behaviours
             _gameActions.Player.Move.canceled += OnMoveCanceled;
             
             _destination = transform.position;
+            _animator.SetFloat(X, 0);
+            _animator.SetFloat(Y, -1);
+            _animator.SetBool(IsMoving, false);
         }
         
         public void EnableInput()
@@ -101,6 +106,7 @@ namespace Game.Behaviours
                 _sequence.OnComplete(() =>
                 {
                     _animator.SetBool(IsMoving, false);
+                    _animator.SetBool(IsPushing, false);
                 });
             }
             
@@ -116,10 +122,15 @@ namespace Game.Behaviours
             var hit = Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Obstacle"));
             if (!hit.collider)
             {
+                _animator.SetBool(IsPushing, false);
                 return true;
             }
             Debug.Log($"PlayerHit: {hit.collider.gameObject.name}");
-            return hit.collider.gameObject.TryGetComponent(out ObstacleBehaviour obstacle) && obstacle.TryMove(_delta);
+            if (!hit.collider.gameObject.TryGetComponent(out ObstacleBehaviour obstacle)) return false;
+            if (!obstacle.TryMove(_delta)) return false;
+            
+            _animator.SetBool(IsPushing, true);
+            return true;
         }
 
         private void OnMoveCanceled(InputAction.CallbackContext context)
@@ -127,9 +138,6 @@ namespace Game.Behaviours
             _isMoving = false;
             _delta = Vector3.zero;
             _rawInput = Vector2.zero;
-            
-            _animator.SetFloat(X, 0);
-            _animator.SetFloat(Y, 0);
         }
         
         
