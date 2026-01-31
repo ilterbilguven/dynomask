@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Managers;
 using Game.Utilities;
 using NaughtyAttributes;
 using PrimeTween;
@@ -32,7 +33,12 @@ namespace Game.Behaviours
         [SerializeField, ReadOnly] private Vector3 _destination;
         
         private Sequence _sequence;
-        
+
+        private void Awake()
+        {
+            GameManager.Instance.SetPlayer(this);
+        }
+
         private void Start()
         {
             _gameActions = new GameActions();
