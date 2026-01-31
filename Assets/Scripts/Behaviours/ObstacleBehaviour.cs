@@ -18,6 +18,8 @@ namespace Game.Behaviours
         [SerializeField, ReadOnly] private Vector3 _destination;
         
         private Sequence _sequence;
+        
+        private Color _gizmoColor = Color.red;
 
         private void Start()
         {
@@ -46,6 +48,7 @@ namespace Game.Behaviours
             if (size != 0)
             {
                 _destination -= delta;
+                _gizmoColor = Color.red;
                 return false;
             }
             
@@ -56,12 +59,17 @@ namespace Game.Behaviours
 
             _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
             GamepadRumble.Instance.Rumble(0.2f, 0.5f, 0.2f);
-            
+            _gizmoColor = Color.green;
 
             // transform.Translate(direction);
 
             return true;
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(_destination, Vector3.one * Movement);
+        }
     }
 }

@@ -180,5 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Behaviours.ObstacleBehaviour
   _rigidbody2D: {fileID: 6581795680105610237}
-  Movement: 0.9
+  Movement: 0.35
   _canMove: 0
+  _destination: {x: 0, y: 0, z: 0}
