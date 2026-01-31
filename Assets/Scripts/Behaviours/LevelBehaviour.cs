@@ -12,7 +12,7 @@ namespace Game
         {
             LevelManager.Instance.LocateLevel(this);
             
-            DimensionManager.Instance.OnDimensionChange.AddListener(OnDimensionChanged);
+            //DimensionManager.Instance.OnDimensionChange.AddListener(OnDimensionChanged);
         }
 
         private void OnDimensionChanged(Timeline from, Timeline to)
