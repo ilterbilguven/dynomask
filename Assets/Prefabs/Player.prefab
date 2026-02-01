@@ -226,6 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Behaviours.PlayerBehaviour
   _rigidbody2D: {fileID: 5658154143672053390}
   _animator: {fileID: 1688321125264448005}
+  _renderer: {fileID: 3280938698543176656}
   _rawInput: {x: 0, y: 0}
   _delta: {x: 0, y: 0, z: 0}
   _isMoving: 0

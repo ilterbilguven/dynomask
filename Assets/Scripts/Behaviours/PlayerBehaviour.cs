@@ -21,6 +21,7 @@ namespace Game.Behaviours
 
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private Animator _animator;
+        [SerializeField] private SpriteRenderer _renderer;
         
         [ReadOnly, SerializeField]
         private Vector2 _rawInput = Vector2.zero;
@@ -35,6 +36,7 @@ namespace Game.Behaviours
 
         [SerializeField, ReadOnly] private Vector3 _destination;
 
+        
         public static Timeline AvailableTimelines { get; private set; } = Timeline.Present;
         
         private Sequence _sequence;
@@ -154,23 +156,47 @@ namespace Game.Behaviours
         {
             if (!AvailableTimelines.HasFlag(Timeline.Future)) return;
             Debug.Log("Future pushed");
+            
+            var currentDimension = DimensionManager.Instance.CurrentDimension;
 
-            DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
-                ? Timeline.Present
-                : Timeline.Future);
+            try
+            {
+                DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
+                    ? Timeline.Present
+                    : Timeline.Future);
+            }
+            catch (Exception e)
+            {
+                DimensionManager.Instance.SetDimension(currentDimension);
+                ViewError();
+            }
         }
 
         private void OnPreviousPerformed(InputAction.CallbackContext context)
         {
             if (!AvailableTimelines.HasFlag(Timeline.Past)) return;
-            
             Debug.Log("Past pushed");
+            
+            var currentDimension = DimensionManager.Instance.CurrentDimension;
 
-            DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
-                ? Timeline.Present
-                : Timeline.Past);
+            try
+            {
+                DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
+                    ? Timeline.Present
+                    : Timeline.Past);
+            }
+            catch (Exception e)
+            {
+                DimensionManager.Instance.SetDimension(currentDimension);
+                ViewError();
+            }
         }
-        
+
+        private void ViewError()
+        {
+            Tween.ShakeLocalPosition(_renderer.transform, Vector3.one * 0.2f, 0.2f);
+            Tween.Color(_renderer, Color.red, 0.2f).OnComplete(() => Tween.Color(_renderer, Color.white, 0.2f));
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {

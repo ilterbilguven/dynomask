@@ -78,7 +78,17 @@ namespace Game
             gameObject.SetActive(m_TimelineExistance.HasFlag(to));
             if (!m_UpdatePosition) return;
             if (!m_TimelineExistance.HasFlag(to)) return;
-            transform.position = m_TimelinePositions[to];
+            
+            var destination = m_TimelinePositions[to];
+
+            if (GameManager.Instance.CheckIfPlayerExists(destination))
+            {
+                var e = new Exception("Player is in the way of the dimension transition");
+                Debug.LogException(e, this);
+                throw e;
+            }
+            
+            transform.position = destination;
 
             if (m_ObstacleBehaviour)
             {
@@ -113,6 +123,16 @@ namespace Game
             }
             
             m_TimelineCache[id] = m_TimelinePositions;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!m_UpdatePosition) return;
+            if (!m_TimelineExistance.HasFlag(DimensionManager.Instance.CurrentDimension)) return;
+            
+            Gizmos.color = Color.tomato;
+            
+            Gizmos.DrawWireCube(m_TimelinePositions[DimensionManager.Instance.CurrentDimension], Vector3.one * 0.5f);
         }
     }
 }

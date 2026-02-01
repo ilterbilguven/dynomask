@@ -14,7 +14,7 @@ namespace Game.Behaviours
         
         public float Movement = 1;
 
-        [ReadOnly, SerializeField] private bool _canMove;
+        [SerializeField] private bool _canMove = true;
         
         [SerializeField, ReadOnly] private Vector3 _destination;
         
@@ -47,18 +47,16 @@ namespace Game.Behaviours
 
         private void Start()
         {
-            _canMove = true;
-            
             _destination = transform.position;
             _renderer.sortingOrder = (int)-_destination.y;
         }
 
         public bool TryMove(Vector3 delta)
         {
-            // if (!_canMove)
-            // {
-            //     return false;
-            // }
+            if (!_canMove)
+            {
+                return false;
+            }
             
             // raycast from the bounds of the collider
             // if there is an obstacle, return false

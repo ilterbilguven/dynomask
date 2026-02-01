@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Behaviours.ObstacleBehaviour
   _rigidbody2D: {fileID: 6581795680105610237}
   Movement: 0.35
-  _canMove: 0
+  _canMove: 1
   _destination: {x: 0, y: 0, z: 0}
   _dimensionObject: {fileID: 170744222489257875}
   _renderer: {fileID: 8307500863037923135}
@@ -222,7 +222,6 @@ MonoBehaviour:
   _timelineSpriteDictionary:
     m_keys: 
     m_values: []
-  _id: 
 --- !u!114 &170744222489257875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,3 +237,4 @@ MonoBehaviour:
   m_TimelineExistance: 6
   m_ObstacleBehaviour: {fileID: 9070216218264951362}
   m_UpdatePosition: 1
+  <id>k__BackingField: 
