@@ -155,7 +155,7 @@ namespace Game.Behaviours
 
         private bool CheckAndTryMoveObstacle()
         {
-            var hit = Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Obstacle"));
+            var hit = Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Obstacle", "Water"));
             if (!hit.collider)
             {
                 _animator.SetBool(IsPushing, false);

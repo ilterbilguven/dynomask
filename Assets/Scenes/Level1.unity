@@ -5516,6 +5516,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2000744378, guid: 62f1a24883cf9d94893ba22eb5ec8d65, type: 3}
+    - target: {fileID: 5357199704113600887, guid: 07afcffda5dad4925b595d406218599f, type: 3}
+      propertyPath: _canMove
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6507600868411037371, guid: 07afcffda5dad4925b595d406218599f, type: 3}
       propertyPath: m_Name
       value: Fence
@@ -6050,6 +6054,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2000744378, guid: 62f1a24883cf9d94893ba22eb5ec8d65, type: 3}
+    - target: {fileID: 5357199704113600887, guid: 07afcffda5dad4925b595d406218599f, type: 3}
+      propertyPath: _canMove
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6507600868411037371, guid: 07afcffda5dad4925b595d406218599f, type: 3}
       propertyPath: m_Name
       value: Fence.1
