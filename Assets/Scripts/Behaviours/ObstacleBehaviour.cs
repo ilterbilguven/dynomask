@@ -30,41 +30,19 @@ namespace Game.Behaviours
 
         [SerializeField] private TimelineSpriteDictionary _timelineSpriteDictionary = new();
 
-        private static Dictionary<string, Vector3?> _positionCache = new();
-
-        [ReadOnly, SerializeField] private string _id;
-
-        private void Reset()
-        {
-            GenerateID();
-        }
-
-        [Button]
-        private void GenerateID()
-        {
-            _id = Guid.NewGuid().ToString();
-        }
-
+        
         private void Awake()
         {
-            if (_positionCache.TryGetValue(_id, out var position))
-            {
-                if (position.HasValue)
-                {
-                    transform.position = position.Value;
-                    
-                }
-                else
-                {
-                    Destroy(gameObject);
-                }
-            }            
-            
             DimensionManager.Instance.OnDimensionChange.AddListener(OnDimensionChanged);
             if (_timelineSpriteDictionary.TryGetValue(DimensionManager.Instance.CurrentDimension, out var sprite))
             {
                 _renderer.sprite = sprite;
             }
+        }
+
+        private void OnDestroy()
+        {
+            DimensionManager.Instance.OnDimensionChange.RemoveListener(OnDimensionChanged);
         }
 
         private void Start()
@@ -128,11 +106,6 @@ namespace Game.Behaviours
             if (_timelineSpriteDictionary.TryGetValue(to, out var sprite))
             {
                 _renderer.sprite = sprite;
-            }
-
-            if (to == Timeline.Present)
-            {
-                _positionCache[_id] = transform.position;
             }
         }
 

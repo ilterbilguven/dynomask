@@ -265,6 +265,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1440188940926841979, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
+      propertyPath: <id>k__BackingField
+      value: a0d5a774-ed33-4a33-8d15-9c73759f0567
+      objectReference: {fileID: 0}
     - target: {fileID: 3465183647575004228, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.5
@@ -513,6 +517,10 @@ PrefabInstance:
     - target: {fileID: 1157526717264793310, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
       propertyPath: m_SortingOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440188940926841979, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
+      propertyPath: <id>k__BackingField
+      value: 82f06ef8-1248-4989-8672-ee3f4045432c
       objectReference: {fileID: 0}
     - target: {fileID: 3465183647575004228, guid: 37ebddfd24dac8a40974bc5784417217, type: 3}
       propertyPath: m_LocalPosition.x
