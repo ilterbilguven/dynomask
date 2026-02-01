@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using NaughtyAttributes;
 
@@ -21,6 +22,13 @@ namespace Game.Behaviours
         public void Deactivate()
         {
             _currentActivationCount--;
+            _activated = _currentActivationCount == _requiredActivations;
+            gameObject.SetActive(!_activated);
+        }
+
+        // duct tape fix
+        private void Update()
+        {
             _activated = _currentActivationCount == _requiredActivations;
             gameObject.SetActive(!_activated);
         }
