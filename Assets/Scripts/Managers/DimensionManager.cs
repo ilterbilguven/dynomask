@@ -32,6 +32,7 @@ namespace Game.Managers
 
         public void SetDimension(Timeline to)
         {
+            if (m_CurrentDimension == to) return;
             Timeline fromTimeline = m_CurrentDimension;
             m_CurrentDimension = to;
             OnDimensionChange?.Invoke(fromTimeline, to);

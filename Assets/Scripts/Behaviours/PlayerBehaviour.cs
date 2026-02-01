@@ -36,8 +36,6 @@ namespace Game.Behaviours
         [SerializeField, ReadOnly] private Vector3 _destination;
 
         public static Timeline AvailableTimelines { get; private set; } = Timeline.Present;
-        private Stack<Timeline> _timelineStack = new();
-        private Dictionary<int, Vector2> _previousPositionsInScenes = new();
         
         private Sequence _sequence;
         
@@ -53,9 +51,7 @@ namespace Game.Behaviours
             _gameActions.Player.Move.performed += OnMovePerformed;
             _gameActions.Player.Move.canceled += OnMoveCanceled;
             _gameActions.Player.Previous.performed += OnPreviousPerformed;
-            _gameActions.Player.Previous.canceled += OnPreviousCanceled;
             _gameActions.Player.Next.performed += OnNextPerformed;
-            _gameActions.Player.Next.canceled += OnNextCanceled;
         }
 
         private void SetAnimatorDefaults()
@@ -157,64 +153,24 @@ namespace Game.Behaviours
         private void OnNextPerformed(InputAction.CallbackContext context)
         {
             if (!AvailableTimelines.HasFlag(Timeline.Future)) return;
-            if (_timelineStack.Contains(Timeline.Future)) return;
-            _timelineStack.Push(Timeline.Future);
             Debug.Log("Future pushed");
 
-            if (!_dimensionChanged)
-            {
-                ApplyStackedTimelines();
-            }
-        }
-
-        private void OnNextCanceled(InputAction.CallbackContext context)
-        {
-            if (!AvailableTimelines.HasFlag(Timeline.Future)) return;
-            
-            _timelineStack.Push(Timeline.Present);
-            Debug.Log("Present pushed");
-            
-            ApplyStackedTimelines();
+            DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
+                ? Timeline.Present
+                : Timeline.Future);
         }
 
         private void OnPreviousPerformed(InputAction.CallbackContext context)
         {
             if (!AvailableTimelines.HasFlag(Timeline.Past)) return;
-            if (_timelineStack.Contains(Timeline.Past)) return;
             
-            _timelineStack.Push(Timeline.Past);
             Debug.Log("Past pushed");
 
-            if (!_dimensionChanged)
-            {
-                ApplyStackedTimelines();
-            }
+            DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
+                ? Timeline.Present
+                : Timeline.Past);
         }
         
-        private void OnPreviousCanceled(InputAction.CallbackContext context)
-        {
-            if (!AvailableTimelines.HasFlag(Timeline.Past)) return;
-            
-            _timelineStack.Push(Timeline.Present);
-            Debug.Log("Present pushed");
-            
-            ApplyStackedTimelines();
-        }
-        
-        private void ApplyStackedTimelines()
-        {
-            if (_timelineStack.Count == 0) return;
-            _dimensionChanged = true;
-            var timeline = _timelineStack.Pop();
-            Debug.Log($"Applying timeline: {timeline}");
-            DimensionManager.Instance.SetDimension(timeline);
-            _dimensionChanged = timeline != Timeline.Present;
-            if (_timelineStack.Count > 0)
-            {
-                Debug.Log("Applying next timeline");
-                ApplyStackedTimelines();
-            }
-        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
