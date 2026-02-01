@@ -327,12 +327,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Utilities.GamepadRumble
   _isPersistent: 1
-  useUnscaledTime: 0
-  smoothing: 12
-  fallSmoothingMultiplier: 4
-  applyImmediatelyOnRequest: 1
-  snapToZeroThreshold: 0.01
-  globalGain: 1
+  TestHighFrequency: 0.5
+  TestLowFrequency: 0.5
+  TestDuration: 0.1
 --- !u!4 &277891251
 Transform:
   m_ObjectHideFlags: 0
