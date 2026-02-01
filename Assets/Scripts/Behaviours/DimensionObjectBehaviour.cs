@@ -13,7 +13,9 @@ namespace Game
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         private static void ResetContext()
         {
-            m_TimelineCache.Clear();
+            m_TimelinePositionCache.Clear();
+            m_TimelineExistenceCache.Clear();
+            m_TimelineInitialValues.Clear();
         }
         
         [SerializeField] private Timeline m_TimelineExistance = Timeline.Past | Timeline.Present | Timeline.Future;
@@ -24,8 +26,10 @@ namespace Game
 
         [SerializeField] private bool m_UpdatePosition = true;
         
-        private static Dictionary<string, Dictionary<Timeline, Vector2>> m_TimelineCache = new();
-
+        private static Dictionary<string, Dictionary<Timeline, Vector2>> m_TimelinePositionCache = new();
+        private static Dictionary<int, Dictionary<string, (Timeline timeline, string tag)>> m_TimelineExistenceCache = new();
+        private static Dictionary<string, Timeline> m_TimelineInitialValues = new();
+        
         [field: ReadOnly, SerializeField] public string id { get; private set; }
 
         [Button]
@@ -42,6 +46,30 @@ namespace Game
         private void Awake()
         {
             DimensionManager.Instance.OnDimensionChange?.AddListener(OnDimensionChanged);
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                m_TimelineInitialValues.TryAdd(id, m_TimelineExistance);
+                
+                if (m_TimelineExistenceCache.TryGetValue(LevelManager.Instance.CurrentSceneIndex, out var timelines))
+                {
+                    if (timelines.TryGetValue(id, out var existence))
+                    {
+                        m_TimelineExistance = existence.timeline;
+
+                    }
+                    else
+                    {
+                        timelines[id] = (m_TimelineExistance, gameObject.tag);
+                    }
+                }
+                else
+                {
+                    m_TimelineExistenceCache[LevelManager.Instance.CurrentSceneIndex] = new();
+                    m_TimelineExistenceCache[LevelManager.Instance.CurrentSceneIndex][id] = (m_TimelineExistance, gameObject.tag);
+                }
+            }
+            
             gameObject.SetActive(m_TimelineExistance.HasFlag(DimensionManager.Instance.CurrentDimension));
             
             if (!m_UpdatePosition) return;
@@ -50,7 +78,7 @@ namespace Game
             if (m_TimelineExistance.HasFlag(Timeline.Present)) m_TimelinePositions.Add(Timeline.Present, transform.position);
             if (m_TimelineExistance.HasFlag(Timeline.Future)) m_TimelinePositions.Add(Timeline.Future, transform.position);
 
-            if (m_TimelineCache.TryGetValue(id, out var positions))
+            if (m_TimelinePositionCache.TryGetValue(id, out var positions))
             {
                 m_TimelinePositions = positions;
                 transform.position = m_TimelinePositions[Timeline.Present];
@@ -59,7 +87,7 @@ namespace Game
             }
             else
             {
-                m_TimelineCache[id] = m_TimelinePositions;
+                m_TimelinePositionCache[id] = m_TimelinePositions;
             }
         }
 
@@ -73,19 +101,89 @@ namespace Game
             UpdateDimensions();
         }
 
+        // black magic
+        // it might be illegal in some countries 
         private void OnDimensionChanged(Timeline from, Timeline to)
         {
             gameObject.SetActive(m_TimelineExistance.HasFlag(to));
             if (!m_UpdatePosition) return;
-            if (!m_TimelineExistance.HasFlag(to)) return;
+            
+            if (!m_TimelineExistance.HasFlag(to))
+            {
+                if (!gameObject.activeSelf && !string.IsNullOrEmpty(id) && m_TimelineExistenceCache.TryGetValue(LevelManager.Instance.CurrentSceneIndex, out var timelinesInThisScene))
+                {
+                    var alone = true;
+                    
+                    foreach (var queryId in timelinesInThisScene.Keys)
+                    {
+                        if (queryId == id) continue;
+                        if (!m_TimelinePositionCache[queryId].TryGetValue(to, out var position)) continue;
+                    
+                        if (Vector2.Distance(position, transform.position) < 0.1f)
+                        {
+                            alone = false;
+                        }
+                    }
+
+                    if (alone)
+                    {
+                        m_TimelineExistance = m_TimelineInitialValues[id];
+                        gameObject.SetActive(m_TimelineExistance.HasFlag(to));
+                        m_TimelineExistenceCache[LevelManager.Instance.CurrentSceneIndex][id] = (m_TimelineExistance, gameObject.tag);
+                    }
+                }
+                return;
+            }
             
             var destination = m_TimelinePositions[to];
 
             if (GameManager.Instance.CheckIfPlayerExists(destination))
             {
                 var e = new Exception("Player is in the way of the dimension transition");
-                Debug.LogException(e, this);
                 throw e;
+            }
+
+            try
+            {
+                if (!string.IsNullOrEmpty(id) &&
+                    m_TimelineExistenceCache.TryGetValue(LevelManager.Instance.CurrentSceneIndex,
+                        out var timelinesInScene))
+                {
+                    foreach (var queryId in timelinesInScene.Keys)
+                    {
+                        if (queryId == id) continue;
+                        if (!m_TimelinePositionCache[queryId].TryGetValue(to, out var position)) continue;
+
+                        if (Vector2.Distance(position, transform.position) < 0.1f)
+                        {
+                            switch (tag)
+                            {
+                                case "Crate" when timelinesInScene[queryId].tag == "Fence":
+                                    m_TimelineExistance &= ~to;
+                                    gameObject.SetActive(false);
+                                    m_TimelineExistenceCache[LevelManager.Instance.CurrentSceneIndex][id] =
+                                        (m_TimelineExistance, gameObject.tag);
+                                    break;
+                                case "Fence" when timelinesInScene[queryId].tag == "Crate":
+                                    break;
+                                case "Fence" when timelinesInScene[queryId].tag == "Pillar":
+                                    m_TimelineExistance &= ~to;
+                                    gameObject.SetActive(false);
+                                    m_TimelineExistenceCache[LevelManager.Instance.CurrentSceneIndex][id] =
+                                        (m_TimelineExistance, gameObject.tag);
+                                    break;
+                                case "Pillar" when timelinesInScene[queryId].tag == "Fence":
+                                    break;
+                            }
+
+                            Debug.LogError(timelinesInScene[queryId].tag, this);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e, this);
             }
             
             transform.position = destination;
@@ -122,17 +220,7 @@ namespace Game
                     break;
             }
             
-            m_TimelineCache[id] = m_TimelinePositions;
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (!m_UpdatePosition) return;
-            if (!m_TimelineExistance.HasFlag(DimensionManager.Instance.CurrentDimension)) return;
-            
-            Gizmos.color = Color.tomato;
-            
-            Gizmos.DrawWireCube(m_TimelinePositions[DimensionManager.Instance.CurrentDimension], Vector3.one * 0.5f);
+            m_TimelinePositionCache[id] = m_TimelinePositions;
         }
     }
 }

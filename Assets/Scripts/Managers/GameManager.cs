@@ -75,6 +75,7 @@ namespace Game.Managers
             var results = new List<Collider2D>();
             var filter = new ContactFilter2D();
             filter.SetLayerMask(LayerMask.GetMask("Player"));
+            filter.useTriggers = false;
             var size = Physics2D.OverlapBox(position, Vector2.one * 0.5f, 0, filter, results);
             
             return size != 0;

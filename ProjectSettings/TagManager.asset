@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Obstacle
   - Mask
+  - Crate
+  - Pillar
+  - Fence
   layers:
   - Default
   - TransparentFX

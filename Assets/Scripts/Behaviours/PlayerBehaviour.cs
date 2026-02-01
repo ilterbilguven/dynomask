@@ -167,6 +167,7 @@ namespace Game.Behaviours
             }
             catch (Exception e)
             {
+                Debug.LogException(e, this);
                 DimensionManager.Instance.SetDimension(currentDimension);
                 ViewError();
             }
@@ -187,6 +188,7 @@ namespace Game.Behaviours
             }
             catch (Exception e)
             {
+                Debug.LogException(e, this);
                 DimensionManager.Instance.SetDimension(currentDimension);
                 ViewError();
             }

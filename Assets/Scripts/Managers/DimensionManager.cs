@@ -5,7 +5,10 @@ using UnityEngine.Events;
 namespace Game.Managers
 {
     [Flags]
-    public enum Timeline { Past = 2, Present = 4, Future = 8 }
+    public enum Timeline
+    {
+        Past = 2, Present = 4, Future = 8, All = Past | Present | Future, None = 0 
+    }
     
     public class DimensionManager : SingletonBehaviour<DimensionManager>
     {
