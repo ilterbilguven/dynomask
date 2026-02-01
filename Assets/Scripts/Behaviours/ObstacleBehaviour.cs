@@ -50,6 +50,7 @@ namespace Game.Behaviours
             _canMove = true;
             
             _destination = transform.position;
+            _renderer.sortingOrder = (int)-_destination.y;
         }
 
         public bool TryMove(Vector3 delta)
@@ -85,6 +86,7 @@ namespace Game.Behaviours
                 _sequence = Sequence.Create();
             }
 
+            _renderer.sortingOrder = (int)-_destination.y;
             _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
             GamepadRumble.Instance.Rumble(0.2f, 0.5f, 0.2f);
             _gizmoColor = Color.green;
@@ -112,6 +114,7 @@ namespace Game.Behaviours
         public void ResetDestination(Vector3 position)
         {
             _destination = position;
+            _renderer.sortingOrder = (int)-_destination.y;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
