@@ -9,6 +9,7 @@ TagManager:
   - Crate
   - Pillar
   - Fence
+  - Activator
   layers:
   - Default
   - TransparentFX

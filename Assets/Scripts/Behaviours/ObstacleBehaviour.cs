@@ -65,12 +65,11 @@ namespace Game.Behaviours
             _destination += delta;
 
             var results = new List<Collider2D>();
+            var filters = new ContactFilter2D();
+            filters.SetLayerMask(LayerMask.GetMask("Obstacle"));
+            filters.useTriggers = false;
             
-            var size = Physics2D.OverlapBox(_destination, Vector2.one * Movement, 0, new ()
-            {
-                layerMask = LayerMask.GetMask("Obstacle"),
-                useTriggers = false
-            }, results);
+            var size = Physics2D.OverlapBox(_destination, Vector2.one * Movement, 0, filters, results);
 
             if (size != 0)
             {
