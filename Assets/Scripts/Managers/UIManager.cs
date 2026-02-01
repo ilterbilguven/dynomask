@@ -9,7 +9,9 @@ namespace Game.Managers
     {
         [SerializeField] private MainMenuPanelBehaviour _mainMenu;
         [SerializeField] private EndPanelBehaviour _end;
-
+        [SerializeField] private InputPanelBehaviour _inputPanelBehaviour;
+        
+        
         public void ToggleMainMenu(bool value)
         {
             if (value) _mainMenu.Open();
@@ -19,6 +21,11 @@ namespace Game.Managers
         private void Start()
         {
             LevelManager.Instance.OnLevelLoaded.AddListener(OnLevelChanged);
+
+            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                _inputPanelBehaviour.Open();
+            }
         }
 
         private void OnLevelChanged(int index)

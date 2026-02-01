@@ -23,6 +23,8 @@ namespace Game.Managers
         {
             base.Awake();
 
+            Application.targetFrameRate = 120;
+            
             LevelManager.Instance.OnLevelChangeRequested.AddListener(OnLevelChangeRequested);
             LevelManager.Instance.OnLevelChanged.AddListener(OnLevelChanged);
         }
