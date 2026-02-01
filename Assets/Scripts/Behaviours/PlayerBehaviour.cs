@@ -17,7 +17,6 @@ namespace Game.Behaviours
         private static readonly int X = Animator.StringToHash("X");
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int IsPushing = Animator.StringToHash("IsPushing");
-        private static readonly int IsSwimming = Animator.StringToHash("IsSwimming");
         private static readonly int Dimension = Animator.StringToHash("Dimension");
         private GameActions _gameActions;
 
@@ -46,6 +45,7 @@ namespace Game.Behaviours
         
         private void Awake()
         {
+            _waterBlit.SetActive(false);
             GameManager.Instance.SetPlayer(this);
 
             _destination = transform.position;
@@ -65,7 +65,6 @@ namespace Game.Behaviours
             _animator.SetFloat(Y, 0);
             _animator.SetBool(IsMoving, false);
             _animator.SetBool(IsPushing, false);
-            _animator.SetBool(IsSwimming, false);
             _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
         }
         
@@ -83,6 +82,7 @@ namespace Game.Behaviours
         {
             _gameActions.Player.Move.performed -= OnMovePerformed;
             _gameActions.Player.Move.canceled -= OnMoveCanceled;
+            _waterBlit.SetActive(false);
         }
 
         private void OnMovePerformed(InputAction.CallbackContext context)
@@ -170,7 +170,6 @@ namespace Game.Behaviours
                     : Timeline.Future);
                 HapticsManager.Instance.Rumble(0.25f, 0.45f, 0.2f);
                 _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
-                _animator.SetBool(IsSwimming, DimensionManager.Instance.CurrentDimension == Timeline.Future);
                 _waterBlit.SetActive(DimensionManager.Instance.CurrentDimension == Timeline.Future);
                 AudioManager.Instance.PlayDimensionChangeSound(DimensionManager.Instance.CurrentDimension);
             }
@@ -197,7 +196,7 @@ namespace Game.Behaviours
                 HapticsManager.Instance.Rumble(0.25f, 0.45f, 0.2f);
                 _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
                 AudioManager.Instance.PlayDimensionChangeSound(DimensionManager.Instance.CurrentDimension);
-                
+                _waterBlit.SetActive(false);
             }
             catch (Exception e)
             {

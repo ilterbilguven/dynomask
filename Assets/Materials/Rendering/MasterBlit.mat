@@ -12,7 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _FX_LIST__NONE
+  - _FX_LIST__WATER
   m_InvalidKeywords:
   - _FX_LIST_NONE
   - _FX_LIST_SCN_CHANGE
@@ -41,7 +41,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _FX_LIST: 0
-    - _FX_LIST_: 0
+    - _FX_LIST_: 1
     - _SceneOut: 1
     - _WaterDistortion: 0.2
     - _WaterHueShift: 0.814

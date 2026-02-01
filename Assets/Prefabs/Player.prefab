@@ -233,3 +233,4 @@ MonoBehaviour:
   _dimensionChanged: 0
   _movement: 1
   _destination: {x: 0, y: 0, z: 0}
+  _waterBlit: {fileID: -5816258618754295717, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
