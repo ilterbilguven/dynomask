@@ -45,9 +45,13 @@ namespace Game.Behaviours
         public static Timeline AvailableTimelines { get; private set; } = Timeline.Present;
         
         private Sequence _sequence;
+
+        private static bool _firstSession = true;
+        
         
         private void Awake()
         {
+            _animator.SetBool("FirstSession", _firstSession);
             _waterBlit.SetActive(false);
             GameManager.Instance.SetPlayer(this);
 
@@ -60,6 +64,19 @@ namespace Game.Behaviours
             _gameActions.Player.Move.canceled += OnMoveCanceled;
             _gameActions.Player.Previous.performed += OnPreviousPerformed;
             _gameActions.Player.Next.performed += OnNextPerformed;
+        }
+
+        private async void Start()
+        {
+            await Awaitable.WaitForSecondsAsync(2f);
+            if (_firstSession)
+            {
+                _animator.SetTrigger("TutorialLevelStart");
+                
+                _firstSession = false;
+                _animator.SetBool("FirstSession", _firstSession);
+                
+            }
         }
 
         private void SetAnimatorDefaults()
