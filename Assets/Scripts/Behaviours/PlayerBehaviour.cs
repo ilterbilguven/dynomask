@@ -6,6 +6,7 @@ using Game.Utilities;
 using NaughtyAttributes;
 using PrimeTween;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
@@ -38,6 +39,8 @@ namespace Game.Behaviours
         [SerializeField, ReadOnly] private Vector3 _destination;
 
         [SerializeField] private FullScreenPassRendererFeature _waterBlit;
+
+        public UnityEvent OnMaskCollected = new UnityEvent();
         
         public static Timeline AvailableTimelines { get; private set; } = Timeline.Present;
         
@@ -217,6 +220,7 @@ namespace Game.Behaviours
         {
             if (other.CompareTag("Mask") && other.TryGetComponent(out MaskBehaviour mask))
             {
+                OnMaskCollected?.Invoke();
                 AvailableTimelines |= mask.Timeline;
                 Destroy(mask.gameObject);
             }
