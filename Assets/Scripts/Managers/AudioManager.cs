@@ -5,6 +5,13 @@ namespace Game.Managers
 {
     public class AudioManager : SingletonBehaviour<AudioManager>
     {
+        protected override void Awake()
+        {
+            base.Awake();
+            
+            DimensionManager.Instance.OnDimensionChange.AddListener(PlayDimensionChangeSound);
+        }
+
         public void PlayObstacleMoveSound(string obstacleType)
         {
             switch (obstacleType)
@@ -21,9 +28,9 @@ namespace Game.Managers
             
         }
         
-        public void PlayDimensionChangeSound(Timeline timeline)
+        public void PlayDimensionChangeSound(Timeline from, Timeline to)
         {
-            switch (timeline)
+            switch (to)
             {
                 case Timeline.Past:
                     break;
