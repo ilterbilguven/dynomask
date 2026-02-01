@@ -217,8 +217,12 @@ MonoBehaviour:
   _canMove: 0
   _destination: {x: 0, y: 0, z: 0}
   _dimensionObject: {fileID: 170744222489257875}
-  _renderer: {fileID: 0}
+  _renderer: {fileID: 8307500863037923135}
   _passthroughColor: {r: 1, g: 1, b: 1, a: 1}
+  _timelineSpriteDictionary:
+    m_keys: 
+    m_values: []
+  _id: 
 --- !u!114 &170744222489257875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,4 +236,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObject
   m_TimelineExistance: 6
+  m_ObstacleBehaviour: {fileID: 9070216218264951362}
   m_UpdatePosition: 1

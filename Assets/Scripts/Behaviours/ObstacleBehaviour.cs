@@ -61,7 +61,6 @@ namespace Game.Behaviours
             }            
             
             DimensionManager.Instance.OnDimensionChange.AddListener(OnDimensionChanged);
-            _dimensionObject.LocateObstacleBehaviour(this);
             if (_timelineSpriteDictionary.TryGetValue(DimensionManager.Instance.CurrentDimension, out var sprite))
             {
                 _renderer.sprite = sprite;

@@ -163,10 +163,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
-      propertyPath: _renderer
-      value: 
-      objectReference: {fileID: 7126984636482161879}
-    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: _passthroughColor.a
       value: 0.78431374
       objectReference: {fileID: 0}
@@ -225,10 +221,5 @@ PrefabInstance:
 --- !u!4 &3465183647575004228 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2428778211031418796, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
-  m_PrefabInstance: {fileID: 1270594267526452200}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &7126984636482161879 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 8307500863037923135, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
   m_PrefabInstance: {fileID: 1270594267526452200}
   m_PrefabAsset: {fileID: 0}

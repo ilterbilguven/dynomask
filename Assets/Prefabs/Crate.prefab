@@ -67,11 +67,43 @@ PrefabInstance:
     - target: {fileID: 8307500863037923135, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8493393655195940220, guid: 7f2109a37e09b4fdebbee6b8ba6fa351, type: 3}
+      objectReference: {fileID: 1719543890321055734, guid: 7f2109a37e09b4fdebbee6b8ba6fa351, type: 3}
     - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: _id
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: _timelineSpriteDictionary.m_keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: _timelineSpriteDictionary.m_values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: '_timelineSpriteDictionary.m_keys.Array.data[0]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: '_timelineSpriteDictionary.m_keys.Array.data[1]'
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: '_timelineSpriteDictionary.m_keys.Array.data[2]'
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: '_timelineSpriteDictionary.m_values.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8493393655195940220, guid: 7f2109a37e09b4fdebbee6b8ba6fa351, type: 3}
+    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: '_timelineSpriteDictionary.m_values.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1719543890321055734, guid: 7f2109a37e09b4fdebbee6b8ba6fa351, type: 3}
+    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: '_timelineSpriteDictionary.m_values.Array.data[2]'
+      value: 
+      objectReference: {fileID: -4452544264687816414, guid: 7f2109a37e09b4fdebbee6b8ba6fa351, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

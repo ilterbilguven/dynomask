@@ -14,7 +14,7 @@ namespace Game
         
         private Dictionary<Timeline, Vector2> m_TimelinePositions; // <Timeline, Position>
 
-        private ObstacleBehaviour m_ObstacleBehaviour;
+        [SerializeField] private ObstacleBehaviour m_ObstacleBehaviour;
 
         [SerializeField] private bool m_UpdatePosition = true;
         
@@ -69,11 +69,6 @@ namespace Game
             {
                 m_ObstacleBehaviour.ResetDestination(transform.position);
             }
-        }
-
-        public void LocateObstacleBehaviour(ObstacleBehaviour obstacleBehaviour)
-        {
-            m_ObstacleBehaviour = obstacleBehaviour;
         }
     }
 }
