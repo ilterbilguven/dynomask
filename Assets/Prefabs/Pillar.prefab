@@ -152,12 +152,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7910816449210766734, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: m_Name
-      value: Pillar 0
+      value: Pillar
       objectReference: {fileID: 0}
     - target: {fileID: 8307500863037923135, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 8673728488854089814, guid: aae2eb652d60442eca4a3871b3ae1b7f, type: 3}
+    - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
+      propertyPath: _id
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9070216218264951362, guid: 505ab65e24b584b8aab2e6a4d37e61e3, type: 3}
       propertyPath: _renderer
       value: 
