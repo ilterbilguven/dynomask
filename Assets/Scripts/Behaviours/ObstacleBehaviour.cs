@@ -23,6 +23,10 @@ namespace Game.Behaviours
         private Color _gizmoColor = Color.red;
 
         [SerializeField] private DimensionObjectBehaviour _dimensionObject;
+
+        [SerializeField] private SpriteRenderer _renderer;
+
+        [SerializeField] private Color _passthroughColor = Color.white;
         
 
         private void Awake()
@@ -53,7 +57,11 @@ namespace Game.Behaviours
 
             var results = new List<Collider2D>();
             
-            var size = Physics2D.OverlapBox(_destination, Vector2.one * Movement, 0, ContactFilter2D.noFilter, results);
+            var size = Physics2D.OverlapBox(_destination, Vector2.one * Movement, 0, new ()
+            {
+                layerMask = LayerMask.GetMask("Obstacle"),
+                useTriggers = false
+            }, results);
 
             if (size != 0)
             {
@@ -90,6 +98,22 @@ namespace Game.Behaviours
         public void ResetDestination(Vector3 position)
         {
             _destination = position;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                Tween.Color(_renderer, Color.white, _passthroughColor, 0.2f);
+            }
+        }
+        
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                Tween.Color(_renderer, _passthroughColor, Color.white, 0.2f);
+            }
         }
     }
 }
