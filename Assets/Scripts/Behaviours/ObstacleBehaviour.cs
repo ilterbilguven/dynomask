@@ -27,12 +27,18 @@ namespace Game.Behaviours
         [SerializeField] private SpriteRenderer _renderer;
 
         [SerializeField] private Color _passthroughColor = Color.white;
+
+        [SerializeField] private TimelineSpriteDictionary _timelineSpriteDictionary = new();
         
 
         private void Awake()
         {
             DimensionManager.Instance.OnDimensionChange.AddListener(OnDimensionChanged);
             _dimensionObject.LocateObstacleBehaviour(this);
+            if (_timelineSpriteDictionary.TryGetValue(DimensionManager.Instance.CurrentDimension, out var sprite))
+            {
+                _renderer.sprite = sprite;
+            }
         }
 
         private void Start()
@@ -93,6 +99,10 @@ namespace Game.Behaviours
         private void OnDimensionChanged(Timeline from, Timeline to)
         {
             _destination = transform.position;
+            if (_timelineSpriteDictionary.TryGetValue(to, out var sprite))
+            {
+                _renderer.sprite = sprite;
+            }
         }
 
         public void ResetDestination(Vector3 position)
@@ -115,5 +125,8 @@ namespace Game.Behaviours
                 Tween.Color(_renderer, _passthroughColor, Color.white, 0.2f);
             }
         }
+        
+        [Serializable]
+        public class TimelineSpriteDictionary : SerializableDictionary<Timeline, Sprite> { }
     }
 }
