@@ -378,11 +378,11 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: FMODUnity::FMODUnity.Settings
   switchSettingsMigration: 1
-  HasSourceProject: 1
+  HasSourceProject: 0
   HasPlatforms: 1
   sourceProjectPath: Assets/Plugins/FMOD/FMOD project/GGJ 2026 - Dinomask/GGJ 2026
     - Dinomask.fspro
-  sourceBankPath: Assets/Plugins/FMOD/FMOD project/GGJ 2026 - Dinomask/Build
+  sourceBankPath: Assets/Audio/FMOD banks
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
