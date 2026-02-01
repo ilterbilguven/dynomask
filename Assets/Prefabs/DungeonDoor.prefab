@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5245133897360177628}
   - component: {fileID: 1070465671446584133}
   - component: {fileID: 5740766313613194329}
+  - component: {fileID: 93311073006049738}
   m_Layer: 0
   m_Name: DungeonDoor
   m_TagString: Untagged
@@ -105,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5ef64f3ed68d44dbb8b76c2a45415c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DoorBehaviour
-  m_PreviousLevelDoor: 0
+  m_NextRoomIndex: -1
 --- !u!61 &5740766313613194329
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -152,3 +153,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &93311073006049738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4188703152683434979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29c1585e2a9c1d4183072c862efe211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObjectBehaviour
+  m_TimelineExistance: 4
+  m_UpdatePosition: 1
