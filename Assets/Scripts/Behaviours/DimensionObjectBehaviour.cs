@@ -81,7 +81,10 @@ namespace Game
             if (m_TimelinePositionCache.TryGetValue(id, out var positions))
             {
                 m_TimelinePositions = positions;
-                transform.position = m_TimelinePositions[Timeline.Present];
+                if (m_TimelinePositions.TryGetValue(Timeline.Present, out var position))
+                {
+                    transform.position = position;
+                }
                 
                 if (m_ObstacleBehaviour) m_ObstacleBehaviour.ResetDestination(transform.position);
             }
@@ -117,8 +120,8 @@ namespace Game
                     foreach (var queryId in timelinesInThisScene.Keys)
                     {
                         if (queryId == id) continue;
-                        if (!m_TimelinePositionCache[queryId].TryGetValue(to, out var position)) continue;
-                    
+                        if (!m_TimelinePositionCache.TryGetValue( queryId, out var positions )) continue;
+                        if (!positions.TryGetValue(to, out var position)) continue; 
                         if (Vector2.Distance(position, transform.position) < 0.1f)
                         {
                             alone = false;
@@ -153,7 +156,8 @@ namespace Game
                     foreach (var queryId in timelinesInScene.Keys)
                     {
                         if (queryId == id) continue;
-                        if (!m_TimelinePositionCache[queryId].TryGetValue(to, out var position)) continue;
+                        if (!m_TimelinePositionCache.TryGetValue(queryId, out var positions)) continue;
+                        if (!positions.TryGetValue(to, out var position)) continue;
 
                         if (Vector2.Distance(position, transform.position) < 0.1f)
                         {
