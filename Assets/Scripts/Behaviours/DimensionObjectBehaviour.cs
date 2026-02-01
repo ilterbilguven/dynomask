@@ -45,13 +45,11 @@ namespace Game
             gameObject.SetActive(m_TimelineExistance.HasFlag(DimensionManager.Instance.CurrentDimension));
             
             if (!m_UpdatePosition) return;
-            m_TimelinePositions = new()
-            {
-                { Timeline.Past, transform.position },
-                { Timeline.Present, transform.position },
-                { Timeline.Future, transform.position }
-            };
-            
+            m_TimelinePositions = new();
+            if (m_TimelineExistance.HasFlag(Timeline.Past)) m_TimelinePositions.Add(Timeline.Past, transform.position);
+            if (m_TimelineExistance.HasFlag(Timeline.Present)) m_TimelinePositions.Add(Timeline.Present, transform.position);
+            if (m_TimelineExistance.HasFlag(Timeline.Future)) m_TimelinePositions.Add(Timeline.Future, transform.position);
+
             if (m_TimelineCache.TryGetValue(id, out var positions))
             {
                 m_TimelinePositions = positions;
@@ -70,12 +68,18 @@ namespace Game
             DimensionManager.Instance.OnDimensionChange?.RemoveListener(OnDimensionChanged);
         }
 
-        private void OnDimensionChanged(Timeline from, Timeline to)
+        private void Update()
         {
             UpdateDimensions();
+        }
+
+        private void OnDimensionChanged(Timeline from, Timeline to)
+        {
             gameObject.SetActive(m_TimelineExistance.HasFlag(to));
             if (!m_UpdatePosition) return;
+            if (!m_TimelineExistance.HasFlag(to)) return;
             transform.position = m_TimelinePositions[to];
+
             if (m_ObstacleBehaviour)
             {
                 m_ObstacleBehaviour.ResetDestination(transform.position);
@@ -107,6 +111,8 @@ namespace Game
                         m_TimelinePositions[Timeline.Future] = transform.position;
                     break;
             }
+            
+            m_TimelineCache[id] = m_TimelinePositions;
         }
     }
 }
