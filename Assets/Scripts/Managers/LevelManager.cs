@@ -169,5 +169,11 @@ namespace Game.Managers
         {
             CurrentLevel = level;
         }
+        
+        [Button]
+        private void GoToEnd()
+        {
+            ChangeLevel(6);
+        }
     }
 }
