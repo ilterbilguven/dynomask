@@ -17,6 +17,7 @@ namespace Game.Behaviours
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int IsPushing = Animator.StringToHash("IsPushing");
         private static readonly int IsSwimming = Animator.StringToHash("IsSwimming");
+        private static readonly int Dimension = Animator.StringToHash("Dimension");
         private GameActions _gameActions;
 
         [SerializeField] private Rigidbody2D _rigidbody2D;
@@ -63,6 +64,7 @@ namespace Game.Behaviours
             _animator.SetBool(IsMoving, false);
             _animator.SetBool(IsPushing, false);
             _animator.SetBool(IsSwimming, false);
+            _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
         }
         
         public void EnableInput()
@@ -164,6 +166,7 @@ namespace Game.Behaviours
                 DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
                     ? Timeline.Present
                     : Timeline.Future);
+                _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
                 HapticsManager.Instance.Rumble(0.25f, 0.45f, 0.2f);
             }
             catch (Exception e)
@@ -186,6 +189,7 @@ namespace Game.Behaviours
                 DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
                     ? Timeline.Present
                     : Timeline.Past);
+                _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
                 HapticsManager.Instance.Rumble(0.25f, 0.45f, 0.2f);
                 
             }
