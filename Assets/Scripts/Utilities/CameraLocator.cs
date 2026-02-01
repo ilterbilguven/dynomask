@@ -9,7 +9,7 @@ namespace Game.Utilities
     {
         [SerializeField] private CinemachineCamera _cinemachineCamera;
         
-        private void Awake()
+        private void Start()
         {
             GameManager.Instance.LocateCamera(_cinemachineCamera);
         }
