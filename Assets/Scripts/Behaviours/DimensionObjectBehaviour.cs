@@ -102,7 +102,7 @@ namespace Game
         }
 
         // black magic
-        // it might be illegal in some countries 
+        // it might be illegal in some countries
         private void OnDimensionChanged(Timeline from, Timeline to)
         {
             gameObject.SetActive(m_TimelineExistance.HasFlag(to));
@@ -132,6 +132,7 @@ namespace Game
                         m_TimelineExistenceCache[LevelManager.Instance.CurrentSceneIndex][id] = (m_TimelineExistance, gameObject.tag);
                     }
                 }
+
                 return;
             }
             

@@ -80,6 +80,7 @@ namespace Game.Managers
 
         IEnumerator RequestSceneChange(int index = -1)
         {
+            HapticsManager.Instance.Rumble(0.18f, 0.22f, 0.2f);
             int validIndex = index == -1 ? m_CurrentSceneIndex + 1 : index;
             bool valid = validIndex < SceneManager.sceneCountInBuildSettings;
             if (!valid)

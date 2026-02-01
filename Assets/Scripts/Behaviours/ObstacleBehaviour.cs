@@ -76,6 +76,8 @@ namespace Game.Behaviours
             {
                 _destination -= delta;
                 _gizmoColor = Color.red;
+                AudioManager.Instance.PlayObstacleMoveDeniedSound();
+                HapticsManager.Instance.Rumble(0.40f, 0.55f, 0.2f);
                 return false;
             }
             
@@ -86,7 +88,8 @@ namespace Game.Behaviours
 
             _renderer.sortingOrder = (int)-_destination.y;
             _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
-            GamepadRumble.Instance.Rumble(0.2f, 0.5f, 0.2f);
+            HapticsManager.Instance.Rumble(0.2f, 0.5f, 0.2f);
+            AudioManager.Instance.PlayObstacleMoveSound(tag);
             _gizmoColor = Color.green;
 
             // transform.Translate(direction);

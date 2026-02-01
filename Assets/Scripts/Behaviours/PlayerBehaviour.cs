@@ -121,7 +121,7 @@ namespace Game.Behaviours
                     _animator.SetBool(IsPushing, false);
                 });
             }
-            
+
             _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
             // transform.Translate(_delta);
             
@@ -164,6 +164,7 @@ namespace Game.Behaviours
                 DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
                     ? Timeline.Present
                     : Timeline.Future);
+                HapticsManager.Instance.Rumble(0.25f, 0.45f, 0.2f);
             }
             catch (Exception e)
             {
@@ -185,6 +186,8 @@ namespace Game.Behaviours
                 DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
                     ? Timeline.Present
                     : Timeline.Past);
+                HapticsManager.Instance.Rumble(0.25f, 0.45f, 0.2f);
+                
             }
             catch (Exception e)
             {
@@ -196,6 +199,7 @@ namespace Game.Behaviours
 
         private void ViewError()
         {
+            HapticsManager.Instance.Rumble(0.10f, 0.70f, 0.2f);
             Tween.ShakeLocalPosition(_renderer.transform, Vector3.one * 0.2f, 0.2f);
             Tween.Color(_renderer, Color.red, 0.2f).OnComplete(() => Tween.Color(_renderer, Color.white, 0.2f));
         }
