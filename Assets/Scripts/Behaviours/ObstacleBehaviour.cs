@@ -51,12 +51,15 @@ namespace Game.Behaviours
             _renderer.sortingOrder = (int)-_destination.y;
         }
 
-        public bool TryMove(Vector3 delta)
+        public bool TryMove(Vector3 delta, bool dontOverrideMovement = false, float tweenTime = 0.2f)
         {
             if (!_canMove)
             {
                 return false;
             }
+            
+            if (_sequence.isAlive && dontOverrideMovement)
+                return false;
             
             // raycast from the bounds of the collider
             // if there is an obstacle, return false
@@ -86,7 +89,7 @@ namespace Game.Behaviours
             }
 
             _renderer.sortingOrder = (int)-_destination.y;
-            _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
+            _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, tweenTime));
             HapticsManager.Instance.Rumble(0.2f, 0.5f, 0.2f);
             AudioManager.Instance.PlayObstacleMoveSound(tag);
             _gizmoColor = Color.green;
