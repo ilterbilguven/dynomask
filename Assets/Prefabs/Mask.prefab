@@ -106,4 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DimensionObjectBehaviour
   m_TimelineExistance: 4
-  m_UpdatePosition: 1
+  m_ObstacleBehaviour: {fileID: 0}
+  m_UpdatePosition: 0
+  <id>k__BackingField: 
