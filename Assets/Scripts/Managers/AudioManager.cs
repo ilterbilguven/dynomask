@@ -30,7 +30,7 @@ namespace Game.Managers
 
         public void PlayObstacleMoveDeniedSound()
         {
-            
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Push_Error");
         }
         
         public void PlayDimensionChangeSound(Timeline to)
@@ -54,7 +54,7 @@ namespace Game.Managers
         
         public void PlayDimensionChangeDeniedSound()
         {
-            
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Hero_Error");
         }
         
         public void PlayRoomChangeSound()
