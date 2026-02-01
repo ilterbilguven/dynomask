@@ -1,18 +1,29 @@
 using System;
 using Game.Utilities;
+using System.Collections;
 
 namespace Game.Managers
 {
     public class AudioManager : SingletonBehaviour<AudioManager>
     {
+        private void Start()
+        {
+            var instanceMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/Music_Gameplay");
+            instanceMusic.start();
+
+            var instanceAmbience = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Ambience");
+            instanceAmbience.start();
+        }
 
         public void PlayObstacleMoveSound(string obstacleType)
         {
             switch (obstacleType)
             {
                 case "Pillar":
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Stone_Move");
                     break;
                 case "Crate":
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Wood_Move");
                     break;
             }
         }
@@ -27,10 +38,16 @@ namespace Game.Managers
             switch (to)
             {
                 case Timeline.Past:
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Portal_Open");
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Time", 0);
                     break;
                 case Timeline.Present:
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Portal_Close");
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Time", 1);
                     break;
                 case Timeline.Future:
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Portal_Open");
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Time", 2);
                     break;
             }
         }
