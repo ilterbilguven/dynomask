@@ -7,6 +7,7 @@ using NaughtyAttributes;
 using PrimeTween;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 namespace Game.Behaviours
 {
@@ -37,6 +38,7 @@ namespace Game.Behaviours
 
         [SerializeField, ReadOnly] private Vector3 _destination;
 
+        [SerializeField] private FullScreenPassRendererFeature _waterBlit;
         
         public static Timeline AvailableTimelines { get; private set; } = Timeline.Present;
         
@@ -166,8 +168,11 @@ namespace Game.Behaviours
                 DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
                     ? Timeline.Present
                     : Timeline.Future);
-                _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
                 HapticsManager.Instance.Rumble(0.25f, 0.45f, 0.2f);
+                _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
+                _animator.SetBool(IsSwimming, DimensionManager.Instance.CurrentDimension == Timeline.Future);
+                _waterBlit.SetActive(DimensionManager.Instance.CurrentDimension == Timeline.Future);
+                AudioManager.Instance.PlayDimensionChangeSound(DimensionManager.Instance.CurrentDimension);
             }
             catch (Exception e)
             {
@@ -189,8 +194,9 @@ namespace Game.Behaviours
                 DimensionManager.Instance.SetDimension(DimensionManager.Instance.CurrentDimension != Timeline.Present
                     ? Timeline.Present
                     : Timeline.Past);
-                _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
                 HapticsManager.Instance.Rumble(0.25f, 0.45f, 0.2f);
+                _animator.SetInteger(Dimension, (int) DimensionManager.Instance.CurrentDimension);
+                AudioManager.Instance.PlayDimensionChangeSound(DimensionManager.Instance.CurrentDimension);
                 
             }
             catch (Exception e)
