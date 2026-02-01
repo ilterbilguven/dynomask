@@ -34,8 +34,8 @@ namespace Game.Behaviours
         [SerializeField] private int _movement = 1;
 
         [SerializeField, ReadOnly] private Vector3 _destination;
-        
-        private static Timeline _availableTimelines = Timeline.Present;
+
+        public static Timeline AvailableTimelines { get; private set; } = Timeline.Present;
         private Stack<Timeline> _timelineStack = new();
         private Dictionary<int, Vector2> _previousPositionsInScenes = new();
         
@@ -56,11 +56,6 @@ namespace Game.Behaviours
             _gameActions.Player.Previous.canceled += OnPreviousCanceled;
             _gameActions.Player.Next.performed += OnNextPerformed;
             _gameActions.Player.Next.canceled += OnNextCanceled;
-        }
-
-        private void Start()
-        {
-            _availableTimelines = Timeline.Present | Timeline.Future | Timeline.Past;
         }
 
         private void SetAnimatorDefaults()
@@ -161,7 +156,7 @@ namespace Game.Behaviours
 
         private void OnNextPerformed(InputAction.CallbackContext context)
         {
-            if (!_availableTimelines.HasFlag(Timeline.Future)) return;
+            if (!AvailableTimelines.HasFlag(Timeline.Future)) return;
             if (_timelineStack.Contains(Timeline.Future)) return;
             _timelineStack.Push(Timeline.Future);
             Debug.Log("Future pushed");
@@ -174,7 +169,7 @@ namespace Game.Behaviours
 
         private void OnNextCanceled(InputAction.CallbackContext context)
         {
-            if (!_availableTimelines.HasFlag(Timeline.Future)) return;
+            if (!AvailableTimelines.HasFlag(Timeline.Future)) return;
             
             _timelineStack.Push(Timeline.Present);
             Debug.Log("Present pushed");
@@ -184,7 +179,7 @@ namespace Game.Behaviours
 
         private void OnPreviousPerformed(InputAction.CallbackContext context)
         {
-            if (!_availableTimelines.HasFlag(Timeline.Past)) return;
+            if (!AvailableTimelines.HasFlag(Timeline.Past)) return;
             if (_timelineStack.Contains(Timeline.Past)) return;
             
             _timelineStack.Push(Timeline.Past);
@@ -198,7 +193,7 @@ namespace Game.Behaviours
         
         private void OnPreviousCanceled(InputAction.CallbackContext context)
         {
-            if (!_availableTimelines.HasFlag(Timeline.Past)) return;
+            if (!AvailableTimelines.HasFlag(Timeline.Past)) return;
             
             _timelineStack.Push(Timeline.Present);
             Debug.Log("Present pushed");
@@ -225,7 +220,7 @@ namespace Game.Behaviours
         {
             if (other.CompareTag("Mask") && other.TryGetComponent(out MaskBehaviour mask))
             {
-                _availableTimelines |= mask.Timeline;
+                AvailableTimelines |= mask.Timeline;
                 Destroy(mask.gameObject);
             }
         }
