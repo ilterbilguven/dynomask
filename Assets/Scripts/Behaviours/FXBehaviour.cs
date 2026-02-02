@@ -7,7 +7,7 @@ namespace Game
     public class FXBehaviour : MonoBehaviour
     {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        void Awake()
         {
             MaskBehaviour.OnMaskWasAlreadyCollected.AddListener(ForceStopPlayback); 
             GameManager.Instance.Player.OnMaskCollected.AddListener(StopPlayback);
