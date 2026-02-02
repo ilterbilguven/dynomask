@@ -10,7 +10,18 @@ namespace Game.Managers
         [SerializeField] private MainMenuPanelBehaviour _mainMenu;
         [SerializeField] private EndPanelBehaviour _end;
         [SerializeField] private InputPanelBehaviour _inputPanelBehaviour;
-        
+
+#if !UNITY_EDITOR && UNITY_WEBGL
+
+        [System.Runtime.InteropServices.DllImport("__Internal")]
+        public static extern bool IsMobileBrowser();
+      
+        [System.Runtime.InteropServices.DllImport("__Internal")]
+        public static extern bool IsPreferredDesktopPlatform();
+#else
+        public static bool IsMobileBrowser() => false;
+        public static bool IsPreferredDesktopPlatform() => true;
+#endif
         
         public void ToggleMainMenu(bool value)
         {
@@ -22,7 +33,7 @@ namespace Game.Managers
         {
             LevelManager.Instance.OnLevelLoaded.AddListener(OnLevelChanged);
 
-            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer || IsMobileBrowser())
             {
                 _inputPanelBehaviour.Open();
             }
