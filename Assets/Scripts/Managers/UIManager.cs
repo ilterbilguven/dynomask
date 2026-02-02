@@ -29,12 +29,16 @@ namespace Game.Managers
             else _mainMenu.Close();
         }
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             LevelManager.Instance.OnLevelLoaded.AddListener(OnLevelChanged);
 
             if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer || IsMobileBrowser())
             {
+                Screen.autorotateToPortrait = false;
+                Screen.orientation = ScreenOrientation.LandscapeLeft;
+                
                 _inputPanelBehaviour.Open();
             }
         }
