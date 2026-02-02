@@ -125,14 +125,13 @@ namespace Game.Behaviours
                 _delta.x = 0;
                 _delta.y = _movement * (int)Mathf.Sign(_rawInput.y);
             }
-            
-            
-            if (!CheckAndTryMoveObstacle())
+
+            if(Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Water")))
             {
                 return;
             }
-
-            if(Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Water")))
+            
+            if (!CheckAndTryMoveObstacle())
             {
                 return;
             }
