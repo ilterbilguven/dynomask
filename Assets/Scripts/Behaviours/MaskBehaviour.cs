@@ -12,7 +12,7 @@ namespace Game
 
         public static UnityEvent OnMaskWasAlreadyCollected = new UnityEvent();
         
-        private void Awake()
+        private void Start()
         {
             if (PlayerBehaviour.AvailableTimelines.HasFlag(Timeline))
             {
