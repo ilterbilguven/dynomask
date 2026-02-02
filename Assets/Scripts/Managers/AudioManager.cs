@@ -11,7 +11,7 @@ namespace Game.Managers
         {
             if (!FMODUnity.RuntimeManager.HasBankLoaded("Master"))
             {
-                yield return FMODUnity.RuntimeManager.HasBankLoaded("Master");
+                yield return new WaitUntil(() => FMODUnity.RuntimeManager.HasBankLoaded("Master"));
                 Debug.Log("Master Bank Loaded");
             }
             
@@ -62,6 +62,17 @@ namespace Game.Managers
         public void PlayDimensionChangeDeniedSound()
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Hero_Error");
+        }
+
+        public void PlayDinoRoarSound()
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Dinosaur_Roar");
+            
+        }
+        
+        public void PlayDeathSound()
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Hero_Death");
         }
         
         public void PlayRoomChangeSound()

@@ -11,7 +11,7 @@ namespace Game.UI
         {
             if (!FMODUnity.RuntimeManager.HasBankLoaded("Master"))
             {
-                yield return FMODUnity.RuntimeManager.HasBankLoaded("Master");
+                yield return new WaitUntil(() => FMODUnity.RuntimeManager.HasBankLoaded("Master"));
                 Debug.Log("Master Bank Loaded");
             }
             GameManager.Instance.StartGame();
