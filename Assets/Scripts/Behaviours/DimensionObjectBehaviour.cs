@@ -11,7 +11,7 @@ namespace Game
     public class DimensionObjectBehaviour : MonoBehaviour
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
-        private static void ResetContext()
+        public static void ResetContext()
         {
             m_TimelinePositionCache.Clear();
             m_TimelineExistenceCache.Clear();

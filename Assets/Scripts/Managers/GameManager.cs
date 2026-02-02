@@ -18,6 +18,11 @@ namespace Game.Managers
         private CinemachineCamera _camera;
         
         private Dictionary<int, Vector3> _previousPositionsInScenes = new();
+
+        public void ResetPlayerPositionInRoom()
+        {
+            _previousPositionsInScenes.Remove(LevelManager.Instance.CurrentSceneIndex);
+        }
         
         protected override void Awake()
         {
