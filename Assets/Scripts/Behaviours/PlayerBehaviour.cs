@@ -200,6 +200,7 @@ namespace Game.Behaviours
             catch (Exception e)
             {
                 Debug.LogException(e, this);
+                AudioManager.Instance.PlayDimensionChangeDeniedSound();
                 DimensionManager.Instance.SetDimension(currentDimension);
                 ViewError();
             }
@@ -225,6 +226,7 @@ namespace Game.Behaviours
             catch (Exception e)
             {
                 Debug.LogException(e, this);
+                AudioManager.Instance.PlayDimensionChangeDeniedSound();
                 DimensionManager.Instance.SetDimension(currentDimension);
                 ViewError();
             }
