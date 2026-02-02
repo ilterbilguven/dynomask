@@ -1,13 +1,20 @@
 using System;
 using Game.Utilities;
 using System.Collections;
+using UnityEngine;
 
 namespace Game.Managers
 {
     public class AudioManager : SingletonBehaviour<AudioManager>
     {
-        private void Start()
+        private IEnumerator Start()
         {
+            if (!FMODUnity.RuntimeManager.HasBankLoaded("Master"))
+            {
+                yield return FMODUnity.RuntimeManager.HasBankLoaded("Master");
+                Debug.Log("Master Bank Loaded");
+            }
+            
             var instanceMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/Music_Gameplay");
             instanceMusic.start();
 
