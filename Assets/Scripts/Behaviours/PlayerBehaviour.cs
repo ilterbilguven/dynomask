@@ -132,6 +132,11 @@ namespace Game.Behaviours
                 return;
             }
 
+            if(Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Water")))
+            {
+                return;
+            }
+            
             _destination += _delta;
             
             _animator.SetBool(IsMoving, true);
