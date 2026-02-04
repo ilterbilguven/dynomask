@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Game.Managers;
 using Game.Utilities;
@@ -30,6 +31,9 @@ namespace Game.Behaviours
 
         [SerializeField] private TimelineSpriteDictionary _timelineSpriteDictionary = new();
 
+        private bool m_FlowLocked;
+
+        public bool CanBeFlowMoved => !m_FlowLocked;
         
         private void Awake()
         {
@@ -134,6 +138,19 @@ namespace Game.Behaviours
             {
                 Tween.Color(_renderer, _passthroughColor, Color.white, 0.2f);
             }
+        }
+        
+        public void LockFlow(float duration)
+        {
+            StartCoroutine(FlowLock(duration));
+        }
+
+        private IEnumerator FlowLock(float duration)
+        {
+            if(DimensionManager.Instance.CurrentDimension != Timeline.Present) yield return null;
+            m_FlowLocked = true;
+            yield return new WaitForSeconds(duration);
+            m_FlowLocked = false;
         }
         
         [Serializable]

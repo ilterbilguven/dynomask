@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Behaviours
@@ -13,20 +14,18 @@ namespace Game.Behaviours
         private bool m_EnqueuedMovement = false;
         
         private ObstacleBehaviour m_Obstacle;
-        
-        private void OnTriggerEnter2D(Collider2D other)
+
+        private FlowPuddleBehaviour m_FlowPuddle;
+
+        private void Start()
         {
-            if (!other.gameObject.TryGetComponent(out ObstacleBehaviour obstacle)) return;
-            m_Obstacle = obstacle;
-            m_EnqueuedMovement = !obstacle.TryMove(m_FlowDirection, true, m_MovementSpeed);
+            m_FlowPuddle = GetComponentInParent<FlowPuddleBehaviour>();
         }
 
-        private void Update()
+        private void OnTriggerStay2D(Collider2D other)
         {
-            if (m_EnqueuedMovement)
-            {
-                m_EnqueuedMovement = !m_Obstacle.TryMove(m_FlowDirection, true, m_MovementSpeed);
-            }
+            if (!other.TryGetComponent(out ObstacleBehaviour obstacle)) return;
+            m_FlowPuddle.Enqueue(obstacle, m_FlowDirection);
         }
 
         private void OnDrawGizmos()
