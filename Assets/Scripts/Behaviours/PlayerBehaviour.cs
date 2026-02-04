@@ -48,6 +48,10 @@ namespace Game.Behaviours
 
         private static bool _firstSession = true;
         
+        [SerializeField] private float _cooldownMovement = 0.2f;
+
+        private Coroutine _moveCoroutine;
+        private bool _isHoldingMove;
         
         private void Awake()
         {
@@ -107,56 +111,77 @@ namespace Game.Behaviours
 
         private void OnMovePerformed(InputAction.CallbackContext context)
         {
-            if (_isMoving)
-            {
-                return;
-            }
-            
-            _isMoving = true;
             _rawInput = context.ReadValue<Vector2>();
+            _isHoldingMove = true;
+
+            if (_moveCoroutine == null)
+            {
+                _moveCoroutine = StartCoroutine(MoveWhilePressed());
+            }
+        }
+
+        private IEnumerator MoveWhilePressed()
+        {
+            while (_isHoldingMove)
+            {
+                TryMoveStep();
+                yield return new WaitForSeconds(_cooldownMovement);
+            }
+
+            _moveCoroutine = null;
+        }
+        
+        private void TryMoveStep()
+        {
+            if (_isMoving) return;
+
+            _isMoving = true;
+
+            _delta = Vector3.zero;
 
             if (Mathf.Abs(_rawInput.x) > Mathf.Abs(_rawInput.y))
             {
-                _delta.x = _movement * (int)Mathf.Sign(_rawInput.x);
-                _delta.y = 0;
+                _delta.x = _movement * Mathf.Sign(_rawInput.x);
             }
-            else if (Mathf.Abs(_rawInput.x) < Mathf.Abs(_rawInput.y))
+            else if (Mathf.Abs(_rawInput.y) > 0)
             {
-                _delta.x = 0;
-                _delta.y = _movement * (int)Mathf.Sign(_rawInput.y);
+                _delta.y = _movement * Mathf.Sign(_rawInput.y);
             }
-
-            if(Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Water")))
+            else
             {
+                _isMoving = false;
                 return;
             }
-            
+
+            if (Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Water")))
+            {
+                _isMoving = false;
+                return;
+            }
+
             if (!CheckAndTryMoveObstacle())
             {
+                _isMoving = false;
                 return;
             }
-            
-            _destination += _delta;
-            
-            _animator.SetBool(IsMoving, true);
 
-            if (!_sequence.isAlive)
-            {
-                _sequence = Sequence.Create();
-                _sequence.OnComplete(() =>
+            _destination += _delta;
+
+            _animator.SetBool(IsMoving, true);
+            _animator.SetFloat(X, _delta.x);
+            _animator.SetFloat(Y, _delta.y);
+
+            _sequence = Sequence.Create()
+                .Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.15f))
+                .OnComplete(() =>
                 {
                     _animator.SetBool(IsMoving, false);
                     _animator.SetBool(IsPushing, false);
+                    _isMoving = false;
                 });
-            }
-
-            _sequence.Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.2f));
-            // transform.Translate(_delta);
-            
-            _animator.SetFloat(X, _delta.x);
-            _animator.SetFloat(Y, _delta.y);
         }
 
+        
         private bool CheckAndTryMoveObstacle()
         {
             var hit = Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Obstacle", "Water"));
@@ -175,9 +200,9 @@ namespace Game.Behaviours
 
         private void OnMoveCanceled(InputAction.CallbackContext context)
         {
-            _isMoving = false;
-            _delta = Vector3.zero;
+            _isHoldingMove = false;
             _rawInput = Vector2.zero;
+            _delta = Vector3.zero;
         }
 
         private void OnNextPerformed(InputAction.CallbackContext context)

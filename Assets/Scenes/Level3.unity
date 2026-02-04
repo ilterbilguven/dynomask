@@ -786,6 +786,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 104560129}
+  - component: {fileID: 104560130}
   m_Layer: 0
   m_Name: Puddle1
   m_TagString: Untagged
@@ -819,6 +820,18 @@ Transform:
   - {fileID: 1847583446}
   m_Father: {fileID: 1766927572}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &104560130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104560128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3049be18bd8d488cb8f6af331971ef6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Behaviours.FlowPuddleBehaviour
 --- !u!1001 &113743188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2997,6 +3010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 449961206}
+  - component: {fileID: 449961207}
   m_Layer: 0
   m_Name: Puddle0
   m_TagString: Untagged
@@ -3045,6 +3059,18 @@ Transform:
   - {fileID: 1558077582}
   m_Father: {fileID: 1766927572}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &449961207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449961205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3049be18bd8d488cb8f6af331971ef6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Behaviours.FlowPuddleBehaviour
 --- !u!1001 &471148292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10464,7 +10490,7 @@ MonoBehaviour:
   Composition:
     ScreenPosition: {x: 0, y: 0}
     DeadZone:
-      Enabled: 1
+      Enabled: 0
       Size: {x: 0.2, y: 0.2}
     HardLimits:
       Enabled: 0

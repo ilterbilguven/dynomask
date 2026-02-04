@@ -1103,7 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa9524ef13451747b3fcd48b450022d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.TRexBehaviour
-  m_AppearingTime: 10
+  m_AppearingTime: 15
   m_Animator: {fileID: 774418831}
 --- !u!1 &774418829
 GameObject:
