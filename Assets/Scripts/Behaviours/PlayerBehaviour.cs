@@ -29,6 +29,9 @@ namespace Game.Behaviours
         private Vector2 _rawInput = Vector2.zero;
         
         [ReadOnly, SerializeField]
+        private Vector2 _animInput = Vector2.left;
+        
+        [ReadOnly, SerializeField]
         private Vector3 _delta = Vector3.zero;
         
         [ReadOnly, SerializeField]
@@ -55,6 +58,9 @@ namespace Game.Behaviours
         
         private void Awake()
         {
+            if(_firstSession)
+                _animInput = Vector2.left;
+            
             _animator.SetBool("FirstSession", _firstSession);
             _waterBlit.SetActive(false);
             GameManager.Instance.SetPlayer(this);
@@ -114,6 +120,8 @@ namespace Game.Behaviours
             _rawInput = context.ReadValue<Vector2>();
             _isHoldingMove = true;
 
+            _animator.SetBool(IsMoving, true);
+            
             if (_moveCoroutine == null)
             {
                 _moveCoroutine = StartCoroutine(MoveWhilePressed());
@@ -130,7 +138,13 @@ namespace Game.Behaviours
 
             _moveCoroutine = null;
         }
-        
+
+        private void Update()
+        {
+            _animator.SetFloat(X, _animInput.x);
+            _animator.SetFloat(Y, _animInput.y);
+        }
+
         private void TryMoveStep()
         {
             if (_isMoving) return;
@@ -155,6 +169,7 @@ namespace Game.Behaviours
 
             if (Physics2D.Raycast(transform.position, _delta, _movement, LayerMask.GetMask("Water")))
             {
+                AudioManager.Instance.PlayObstacleMoveDeniedSound();
                 _isMoving = false;
                 return;
             }
@@ -166,16 +181,13 @@ namespace Game.Behaviours
             }
 
             _destination += _delta;
-
-            _animator.SetBool(IsMoving, true);
-            _animator.SetFloat(X, _delta.x);
-            _animator.SetFloat(Y, _delta.y);
+            _animInput = _rawInput;
 
             _sequence = Sequence.Create()
-                .Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, 0.15f))
+                .Chain(Tween.RigidbodyMovePosition(_rigidbody2D, _destination, _cooldownMovement))
                 .OnComplete(() =>
                 {
-                    _animator.SetBool(IsMoving, false);
+                    //_animator.SetBool(IsMoving, false);
                     _animator.SetBool(IsPushing, false);
                     _isMoving = false;
                 });
@@ -191,7 +203,11 @@ namespace Game.Behaviours
                 return true;
             }
             Debug.Log($"PlayerHit: {hit.collider.gameObject.name}");
-            if (!hit.collider.gameObject.TryGetComponent(out ObstacleBehaviour obstacle)) return false;
+            if (!hit.collider.gameObject.TryGetComponent(out ObstacleBehaviour obstacle))
+            {
+                AudioManager.Instance.PlayObstacleMoveDeniedSound();
+                return false;
+            }
             if (!obstacle.TryMove(_delta)) return false;
             
             _animator.SetBool(IsPushing, true);
@@ -203,6 +219,8 @@ namespace Game.Behaviours
             _isHoldingMove = false;
             _rawInput = Vector2.zero;
             _delta = Vector3.zero;
+            
+            _animator.SetBool(IsMoving, false);
         }
 
         private void OnNextPerformed(InputAction.CallbackContext context)

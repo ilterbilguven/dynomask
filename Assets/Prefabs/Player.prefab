@@ -341,6 +341,7 @@ MonoBehaviour:
   _animator: {fileID: 1688321125264448005}
   _renderer: {fileID: 3280938698543176656}
   _rawInput: {x: 0, y: 0}
+  _animInput: {x: -1, y: 0}
   _delta: {x: 0, y: 0, z: 0}
   _isMoving: 0
   _dimensionChanged: 0
@@ -350,3 +351,4 @@ MonoBehaviour:
   OnMaskCollected:
     m_PersistentCalls:
       m_Calls: []
+  _cooldownMovement: 0.3
