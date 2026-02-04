@@ -19,6 +19,7 @@ namespace Game.Behaviours
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int IsPushing = Animator.StringToHash("IsPushing");
         private static readonly int Dimension = Animator.StringToHash("Dimension");
+        private static readonly int MaskCollect = Animator.StringToHash("MaskCollectedHold");
         private GameActions _gameActions;
 
         [SerializeField] private Rigidbody2D _rigidbody2D;
@@ -286,10 +287,20 @@ namespace Game.Behaviours
         {
             if (other.CompareTag("Mask") && other.TryGetComponent(out MaskBehaviour mask))
             {
+                StartCoroutine(HoldMaskAnimation());
                 OnMaskCollected?.Invoke();
                 AvailableTimelines |= mask.Timeline;
                 Destroy(mask.gameObject);
             }
+        }
+
+        IEnumerator HoldMaskAnimation()
+        {
+            _animator.SetBool(MaskCollect, true);
+            DisableInput();
+            yield return new WaitForSeconds(1f);
+            _animator.SetBool(MaskCollect, false);
+            EnableInput();
         }
     }
 }
