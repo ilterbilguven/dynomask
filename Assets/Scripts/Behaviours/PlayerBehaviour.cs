@@ -287,20 +287,23 @@ namespace Game.Behaviours
         {
             if (other.CompareTag("Mask") && other.TryGetComponent(out MaskBehaviour mask))
             {
-                StartCoroutine(HoldMaskAnimation());
+                StartCoroutine(HoldMaskAnimation(mask));
                 OnMaskCollected?.Invoke();
                 AvailableTimelines |= mask.Timeline;
-                Destroy(mask.gameObject);
             }
         }
 
-        IEnumerator HoldMaskAnimation()
+        IEnumerator HoldMaskAnimation(MaskBehaviour mask)
         {
+            float animMaskDuration = 0.75f;
+            float holdDuration = 1.5f;
+            mask.CollectMask(animMaskDuration, holdDuration);
             _animator.SetBool(MaskCollect, true);
             DisableInput();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(animMaskDuration * 2 + holdDuration);
             _animator.SetBool(MaskCollect, false);
             EnableInput();
+            Destroy(mask.gameObject);
         }
     }
 }

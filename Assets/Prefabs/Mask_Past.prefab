@@ -76,6 +76,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4832649720263692758, guid: e268fa80275144849a4247987e4ae9cf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4817158a3a8d617438840cc2301be280, type: 3}
+    - target: {fileID: 4832649720263692758, guid: e268fa80275144849a4247987e4ae9cf, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5355489749186423693, guid: e268fa80275144849a4247987e4ae9cf, type: 3}
       propertyPath: Timeline
       value: 2

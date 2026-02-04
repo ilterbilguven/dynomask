@@ -27,9 +27,13 @@ namespace Game.Managers
             switch (obstacleType)
             {
                 case "Pillar":
+            Debug.Log("Push denied sound Pillar");
+                    
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Stone_Move");
                     break;
                 case "Crate":
+            Debug.Log("Push denied sound Crate");
+                    
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Wood_Move");
                     break;
             }
@@ -37,6 +41,7 @@ namespace Game.Managers
 
         public void PlayObstacleMoveDeniedSound()
         {
+            Debug.Log("Push denied sound");
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Push_Error");
         }
         
