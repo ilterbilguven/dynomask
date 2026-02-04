@@ -67,7 +67,6 @@ namespace Game.Managers
         public void PlayDinoRoarSound()
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Dinosaur_Roar");
-            
         }
         
         public void PlayDeathSound()

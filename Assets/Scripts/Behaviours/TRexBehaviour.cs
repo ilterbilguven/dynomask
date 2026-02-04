@@ -10,9 +10,10 @@ namespace Game
     {
         private Vector3 m_StartingPosition;
 
-        private bool m_ShouldAppear = false;
-        [SerializeField] private float m_AppearingTime = 10f;
-        private float m_AppearingTimer;
+        [SerializeField] private float m_AppearAfter = 10f;
+        [SerializeField] private float m_RoarAfter = 2f;
+        
+        private Coroutine m_MainCoroutine;
         
         [SerializeField] private Animator m_Animator;
         
@@ -29,24 +30,27 @@ namespace Game
 
         private void CheckForTimerActivation(Timeline from, Timeline to)
         {
-            m_ShouldAppear = to == Timeline.Past;
-            m_AppearingTimer = 0;
+            bool shouldAppear = to == Timeline.Past;
+            if (shouldAppear && m_MainCoroutine == null)
+            {
+                m_MainCoroutine = StartCoroutine(UpdateTRexAppearance());
+            }
+            else if (!shouldAppear && m_MainCoroutine != null)
+            {
+                StopCoroutine(m_MainCoroutine);
+                m_MainCoroutine = null;
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+        private IEnumerator UpdateTRexAppearance()
         {
-            if (!m_ShouldAppear)
-            {
-                return;
-            }
-
-            m_AppearingTimer += Time.deltaTime;
-            if (m_AppearingTimer >= m_AppearingTime)
-            {
-                StartCoroutine(AnimateGameOver());
-                m_ShouldAppear = false;
-            }
+            yield return new WaitForSeconds(m_RoarAfter);
+            AudioManager.Instance.PlayDinoRoarSound();
+            yield return new WaitForSeconds(m_AppearAfter - m_RoarAfter);
+            
+            m_MainCoroutine = null;
+            
+            StartCoroutine(AnimateGameOver());
         }
 
         private IEnumerator AnimateGameOver()
@@ -55,11 +59,12 @@ namespace Game
             
             m_Animator.Play("TRexAnimation");
 
-            // Shit work but work (don't want to use timeline tbh)
+            // Shit work, but works (don't want to use timeline tbh)
             yield return new WaitForSeconds(0.5f);
             GameManager.Instance.Player.GetComponentInChildren<SpriteRenderer>().enabled = false;
             yield return new WaitForSeconds(0.75f);
             
+            AudioManager.Instance.PlayDeathSound();
             LevelManager.Instance.OnLevelUnloaded.AddListener(OnLevelUnloaded);
             LevelManager.Instance.ReloadLevel();
         }
