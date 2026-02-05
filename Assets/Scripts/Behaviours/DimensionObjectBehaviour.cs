@@ -198,6 +198,11 @@ namespace Game
                 m_ObstacleBehaviour.ResetDestination(transform.position);
             }
         }
+        
+        public bool DoesExistInDimension(Timeline dimension)
+        {
+            return m_TimelineExistance.HasFlag(dimension);
+        }
 
         private void UpdateDimensions()
         {
