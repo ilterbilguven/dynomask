@@ -20,12 +20,8 @@ namespace Game
                 LevelManager.Instance.ChangeLevel(4);
             else if (Keyboard.current.digit5Key.wasPressedThisFrame)
                 LevelManager.Instance.ChangeLevel(5);
-            else if (Keyboard.current.iKey.wasPressedThisFrame)
-                DimensionManager.Instance.SetDimension(Timeline.Past);
-            else if (Keyboard.current.oKey.wasPressedThisFrame)
-                DimensionManager.Instance.SetDimension(Timeline.Present);
-            else if (Keyboard.current.pKey.wasPressedThisFrame)
-                DimensionManager.Instance.SetDimension(Timeline.Future);
+            else if (Keyboard.current.digit0Key.wasPressedThisFrame)
+                GameManager.Instance.Player.CollectMasks();
         }
 #endif
     }

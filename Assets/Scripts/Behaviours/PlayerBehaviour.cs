@@ -292,6 +292,14 @@ namespace Game.Behaviours
                 AvailableTimelines |= mask.Timeline;
             }
         }
+        
+        #if CHEATS_ENABLED
+        public void CollectMasks()
+        {
+            OnMaskCollected?.Invoke();
+            AvailableTimelines |= Timeline.Past | Timeline.Future;
+        }
+        #endif
 
         IEnumerator HoldMaskAnimation(MaskBehaviour mask)
         {
